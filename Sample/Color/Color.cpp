@@ -1,4 +1,5 @@
 // Color.cpp : コンソール アプリケーションのエントリ ポイントを定義します。
+// This source code is licensed under the MIT license. Please see the License in License.txt.
 // "This is preliminary software and/or hardware and APIs are preliminary and subject to change."
 //
 
