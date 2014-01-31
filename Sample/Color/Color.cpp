@@ -1,4 +1,5 @@
 // Color.cpp : コンソール アプリケーションのエントリ ポイントを定義します。
+// "This is preliminary software and/or hardware and APIs are preliminary and subject to change."
 //
 
 #include "stdafx.h"
