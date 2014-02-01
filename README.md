@@ -1,7 +1,7 @@
 ﻿Kinect for Windows SDK v2 Developer Preview Sample Program
 ==========================================================
 
-Sample Program of Kinect for Windows SDK v2 Developer Preview
+Sample Program of Kinect for Windows SDK v2 Developer Preview  
 I will continue to add new sample program when published article in Build Insider.
 
 
