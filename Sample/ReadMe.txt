@@ -4,7 +4,7 @@
 ■Structure
 Structure of this Sample Program is as follows.
 
-    Sample.zip
+    Kinect2Sample
     │
     │  // Sample Program
     ├─Sample
@@ -31,18 +31,20 @@ Structure of this Sample Program is as follows.
     │  │  ├─Infrared.vcxproj
     │  │  └─Infrared.cpp
     │  │
-    │  └─Audio
-    │      ├─Audio.vcxproj
-    │      └─Audio.cpp
+    │  ├─Audio
+    │  │  ├─Audio.vcxproj
+    │  │  └─Audio.cpp
+    │  │
+    │  │  // Property Sheet
+    │  ├─Sample.props
+    │  │
+    │  │  // License
+    │  ├─License.txt
+    │  │
+    │  │  // Read Me
+    │  └─ReadMe.txt
     │
-    │  // Property Sheet
-    ├─Sample.props
-    │
-    │  // License
-    ├─License.txt
-    │
-    │  // Read Me
-    └─ReadMe.txt
+    └─README.md
 
 
 ■About Sample Program
@@ -69,7 +71,7 @@ Please set the following Environment Variables.
 
 
 ■About License
-License of this Sample Program suppose MIT License. 
+License of this Sample Program suppose MIT License.
 Please refer to License.txt.
 
 
@@ -91,3 +93,5 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ■Change History
 2014/02/01 Created Sample Program
 2014/02/01 Add Color
+2014/02/14 Add Depth
+2014//     Add BodyIndex
