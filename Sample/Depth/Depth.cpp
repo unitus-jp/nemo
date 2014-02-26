@@ -13,12 +13,12 @@ template<class Interface>
 inline void SafeRelease( Interface *& pInterfaceToRelease )
 {
 	if( pInterfaceToRelease != NULL ){
-		pInterfaceToRelease->Release( );
+		pInterfaceToRelease->Release();
 		pInterfaceToRelease = NULL;
 	}
 }
 
-int _tmain( int argc, _TCHAR* argv[ ] )
+int _tmain( int argc, _TCHAR* argv[] )
 {
 	cv::setUseOptimized( true );
 
@@ -31,7 +31,7 @@ int _tmain( int argc, _TCHAR* argv[ ] )
 		return -1;
 	}
 
-	hResult = pSensor->Open( );
+	hResult = pSensor->Open();
 	if( FAILED( hResult ) ){
 		std::cerr << "Error : IKinectSensor::Open()" << std::endl;
 		return -1;
@@ -94,10 +94,10 @@ int _tmain( int argc, _TCHAR* argv[ ] )
 	SafeRelease( pDepthReader );
 	SafeRelease( pDescription );
 	if( pSensor ){
-		pSensor->Close( );
+		pSensor->Close();
 	}
 	SafeRelease( pSensor );
-	cv::destroyAllWindows( );
+	cv::destroyAllWindows();
 
 	return 0;
 }
