@@ -69,6 +69,10 @@ Please set the following Environment Variables.
     OPENCV_VER		248
     Path		;%OPENCV_DIR%\build\x64\vc12\bin
 
+For more information, see this page.
+
+    Summary?Blog - How to build the Development Environment of OpenCV (for Japanese Only)
+    http://unanancyowen.com/?p=97
 
 ■About License
 License of this Sample Program suppose MIT License.
