@@ -71,8 +71,9 @@ Please set the following Environment Variables.
 
 For more information, see this page.
 
-    Summary?Blog - How to build the Development Environment of OpenCV (for Japanese Only)
+    Summary?Blog - How to build the Development Environment of OpenCV
     http://unanancyowen.com/?p=97
+
 
 ■About License
 License of this Sample Program suppose MIT License.
