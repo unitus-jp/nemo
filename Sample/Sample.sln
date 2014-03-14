@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Color", "Color\Color.vcxproj", "{10D7FFE7-5FE1-40A4-B5A5-7C331FB06CF3}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BodyIndex", "BodyIndex\BodyIndex.vcxproj", "{2019E947-6FE3-44BF-93B1-A15F30A8009F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Body", "Body\Body.vcxproj", "{4ADCDF89-D643-44FB-AF03-8BD11C0BB079}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Infrared", "Infrared\Infrared.vcxproj", "{985C49FD-CA42-4C2B-B689-18F186D1A993}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{4ADCDF89-D643-44FB-AF03-8BD11C0BB079}.Release|Win32.Build.0 = Release|Win32
 		{4ADCDF89-D643-44FB-AF03-8BD11C0BB079}.Release|x64.ActiveCfg = Release|x64
 		{4ADCDF89-D643-44FB-AF03-8BD11C0BB079}.Release|x64.Build.0 = Release|x64
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Debug|Win32.ActiveCfg = Debug|Win32
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Debug|Win32.Build.0 = Debug|Win32
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Debug|x64.ActiveCfg = Debug|x64
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Debug|x64.Build.0 = Debug|x64
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|Win32.ActiveCfg = Release|Win32
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|Win32.Build.0 = Release|Win32
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|x64.ActiveCfg = Release|x64
+		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

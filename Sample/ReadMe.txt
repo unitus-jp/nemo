@@ -31,10 +31,6 @@ Structure of this Sample Program is as follows.
     │  │  ├─Infrared.vcxproj
     │  │  └─Infrared.cpp
     │  │
-    │  ├─Audio
-    │  │  ├─Audio.vcxproj
-    │  │  └─Audio.cpp
-    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -75,6 +71,26 @@ For more information, see this page.
     http://unanancyowen.com/?p=97
 
 
+■Build Insider
+Kinect for Windows v2 Developer Preview Introduction - for C++ Programmers Article Series
+http://www.buildinsider.net/small/kinectv2cpp
+
+    1. To Compare Kinect v1 and Kinect v2
+    http://www.buildinsider.net/small/kinectv2cpp/01
+
+    2. Kinect v2 Programming for C++ - Color part
+    http://www.buildinsider.net/small/kinectv2cpp/02
+
+    3. Kinect v2 Programming for C++ - Depth part
+    http://www.buildinsider.net/small/kinectv2cpp/03
+
+    4. Kinect v2 Programming for C++ - BodyIndex part
+    http://www.buildinsider.net/small/kinectv2cpp/04
+
+    5. Kinect v2 Programming for C++ - Body part
+    http://www.buildinsider.net/small/kinectv2cpp/05
+
+
 ■About License
 License of this Sample Program suppose MIT License.
 Please refer to License.txt.
@@ -101,3 +117,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/02/14 Add Depth
 2014/02/28 Add BodyIndex
 2014/03/07 Add Body
+2014/03/14 Add Infrared
