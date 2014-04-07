@@ -90,6 +90,9 @@ http://www.buildinsider.net/small/kinectv2cpp
     5. Kinect v2 Programming for C++ - Body part
     http://www.buildinsider.net/small/kinectv2cpp/05
 
+    6. What's New Kinect Studio v2? - March SDK Update
+    http://www.buildinsider.net/small/kinectv2cpp/06
+
 
 ■About License
 License of this Sample Program suppose MIT License.
