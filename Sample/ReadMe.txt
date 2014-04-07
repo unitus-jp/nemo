@@ -48,7 +48,7 @@ This Sample Program is setting to be able to build in the following environments
 Please rewrite the appropriate setting depending on the environment.
 
     Visual Studio Express 2013 for Windows Desktop
-    Kinect for Windows SDK v2 Developer Preview 1311
+    Kinect for Windows SDK v2 Developer Preview 1403
     OpenCV 2.4.8
 
 
