@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Body", "Body\Body.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Infrared", "Infrared\Infrared.vcxproj", "{985C49FD-CA42-4C2B-B689-18F186D1A993}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Event", "Event\Event.vcxproj", "{6670B165-6765-4140-8384-CA17CDC93BDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -61,6 +63,14 @@ Global
 		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|Win32.Build.0 = Release|Win32
 		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|x64.ActiveCfg = Release|x64
 		{985C49FD-CA42-4C2B-B689-18F186D1A993}.Release|x64.Build.0 = Release|x64
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Debug|Win32.Build.0 = Debug|Win32
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Debug|x64.ActiveCfg = Debug|x64
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Debug|x64.Build.0 = Debug|x64
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Release|Win32.ActiveCfg = Release|Win32
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Release|Win32.Build.0 = Release|Win32
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Release|x64.ActiveCfg = Release|x64
+		{6670B165-6765-4140-8384-CA17CDC93BDD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
