@@ -92,7 +92,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	while( 1 ){
 		// Waitable Events
-		HANDLE hEvents[] = { reinterpret_cast<HANDLE>( hColorWaitable ) };
+		HANDLE hEvents[ ] = { reinterpret_cast<HANDLE>( hColorWaitable ) };
 		WaitForMultipleObjects( ARRAYSIZE( hEvents ), hEvents, true, INFINITE );
 
 		// Arrived Data
