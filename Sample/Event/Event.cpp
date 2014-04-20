@@ -23,6 +23,7 @@ inline void SafeRelease( Interface *& pInterfaceToRelease, WAITABLE_HANDLE & pWa
 {
 	if( pInterfaceToRelease != NULL && pWaitableHandleToRelease != NULL ){
 		pInterfaceToRelease->UnsubscribeFrameArrived( pWaitableHandleToRelease );
+		pInterfaceToRelease->Release();
 		pInterfaceToRelease = NULL;
 		pWaitableHandleToRelease = NULL;
 	}
@@ -91,7 +92,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	while( 1 ){
 		// Waitable Events
-		HANDLE hEvents[ ] = { reinterpret_cast<HANDLE>( hColorWaitable ) };
+		HANDLE hEvents[] = { reinterpret_cast<HANDLE>( hColorWaitable ) };
 		WaitForMultipleObjects( ARRAYSIZE( hEvents ), hEvents, true, INFINITE );
 
 		// Arrived Data
