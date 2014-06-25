@@ -12,8 +12,8 @@ Disclaimer
 
 Environment
 -----------
-* Kinect for WIndows SDK v2.0 Developer Preview 1403
-* OpenCV 2.4.8
+* Kinect for WIndows SDK v2.0 Developer Preview 1406
+* OpenCV 2.4.9
 * Visual Studio 2013 Express for Windows Desktop
 
 

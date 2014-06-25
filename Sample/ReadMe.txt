@@ -35,6 +35,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─Event.vcxproj
     │  │  └─Event.cpp
     │  │
+    │  ├─AudioBeam
+    │  │  ├─AudioBeam.vcxproj
+    │  │  └─AudioBeam.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -52,8 +56,8 @@ This Sample Program is setting to be able to build in the following environments
 Please rewrite the appropriate setting depending on the environment.
 
     Visual Studio Express 2013 for Windows Desktop
-    Kinect for Windows SDK v2 Developer Preview 1403
-    OpenCV 2.4.8
+    Kinect for Windows SDK v2 Developer Preview 1406
+    OpenCV 2.4.9
 
 
 ■Setting for OpenCV
@@ -66,7 +70,7 @@ Please set the following Environment Variables.
 
     Variable Name:	Variable Value:
     OPENCV_DIR		C:\Program Files\opencv\
-    OPENCV_VER		248
+    OPENCV_VER		249
     Path		;%OPENCV_DIR%\build\x64\vc12\bin
 
 For more information, see this page.
@@ -126,3 +130,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/03/07 Add Body
 2014/03/14 Add Infrared
 2014/04/18 Add Event
+2014/06/25 Add AudioBeam
