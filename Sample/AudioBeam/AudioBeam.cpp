@@ -7,6 +7,7 @@
 #include <Windows.h>
 #include <Kinect.h>
 #include <iostream>
+#include <cstdlib>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -81,7 +82,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		hResult = pAudioStream->Read( reinterpret_cast<void*>( audioBuffer ), sizeof( audioBuffer ), &readSize );
 
 		if( readSize > 0 ){
-			// Get Angle and Condidence
+			// Get Angle and Confidence
 			FLOAT angle = 0.0f;
 			FLOAT confidence = 0.0f;
 
@@ -91,6 +92,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 			// Show Result
 			// Convert from radian to degree : degree = radian * 180 / Pi
 			if( confidence > 0 ){
+				std::system( "cls" );
 				std::cout << "Angle : " << angle * 180.0f / M_PI << ", Confidence : " << confidence << std::endl;
 			}
 		}
