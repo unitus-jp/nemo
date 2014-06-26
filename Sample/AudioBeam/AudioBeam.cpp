@@ -6,10 +6,11 @@
 #include "stdafx.h"
 #include <Windows.h>
 #include <Kinect.h>
-#include <opencv2/opencv.hpp>
+#include <iostream>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+
 
 template<class Interface>
 inline void SafeRelease( Interface *& pInterfaceToRelease )
@@ -20,39 +21,8 @@ inline void SafeRelease( Interface *& pInterfaceToRelease )
 	}
 }
 
-// Visualize Audio Beam
-void drowResult( cv::Mat &img, const double angle, const double confidence )
-{
-	int x = img.cols / 2;
-	double length = 240;
-	double baseAngle = 90.0f * M_PI / 180.0f;
-
-	img = cv::Scalar( 255, 255, 255 );
-
-	// Drow Scale
-	cv::line( img, cv::Point( x, 0 ), cv::Point( x + static_cast<int>( length * std::cos( -baseAngle ) ), static_cast<int>( length * -std::sin( -baseAngle ) ) ), cv::Scalar( 0, 0, 0 ), 1, CV_AA );
-	for( int degree = 0; degree <= 50; degree += 10 ){
-		cv::line( img, cv::Point( x, 0 ), cv::Point( x + static_cast<int>( length * std::cos( -( baseAngle + ( degree * M_PI / 180.0f ) ) ) ), static_cast<int>( length * -std::sin( -( baseAngle + ( degree * M_PI / 180.0f ) ) ) ) ), cv::Scalar( 0, 0, 0 ), 1, CV_AA );
-		cv::line( img, cv::Point( x, 0 ), cv::Point( x + static_cast<int>( length * std::cos( -( baseAngle - ( degree * M_PI / 180.0f ) ) ) ), static_cast<int>( length * -std::sin( -( baseAngle - ( degree * M_PI / 180.0f ) ) ) ) ), cv::Scalar( 0, 0, 0 ), 1, CV_AA );
-	}
-
-	// Drow Angle of Audio Beam
-	cv::line( img, cv::Point( x, 0 ), cv::Point( x + static_cast<int>( length * std::cos( angle - baseAngle ) ), static_cast<int>( length * -std::sin( angle - baseAngle ) ) ), cv::Scalar( 0, 0, 255 ), 5, CV_AA ); // Beamforming
-
-	// Angle and Confidence
-	std::ostringstream stream;
-	stream << ( angle * 180.0f ) / M_PI;
-	cv::putText( img, "angle : " + stream.str(), cv::Point( 20, 350 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, cv::Scalar( 0, 0, 0 ), 1, CV_AA );
-
-	stream.str( "" );
-	stream << confidence;
-	cv::putText( img, "confidence : " + stream.str(), cv::Point( 20, 400 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, cv::Scalar( 0, 0, 0 ), 1, CV_AA );
-}
-
 int _tmain( int argc, _TCHAR* argv[] )
 {
-	cv::setUseOptimized( true );
-
 	// Sensor
 	IKinectSensor* pSensor;
 	HRESULT hResult = S_OK;
@@ -103,9 +73,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 	static const int samplingFrequency = 16000; // Sampling Frequency 16000[Hz]
 	static const int audioBufferLength = samplingFrequency / 1000;
 
-	cv::Mat audioMat( 480, 640, CV_8UC3 );
-	cv::namedWindow( "Audio", cv::WINDOW_AUTOSIZE );
-
 	while( 1 ){
 		// Retrieved Audio Data
 		FLOAT audioBuffer[audioBufferLength];
@@ -118,19 +85,19 @@ int _tmain( int argc, _TCHAR* argv[] )
 			FLOAT angle = 0.0f;
 			FLOAT confidence = 0.0f;
 
-			pAudioBeam->get_BeamAngle( &angle );
-			pAudioBeam->get_BeamAngleConfidence( &confidence );
+			pAudioBeam->get_BeamAngle( &angle ); // radian [-0.872665f, 0.872665f]
+			pAudioBeam->get_BeamAngleConfidence( &confidence ); // confidence [0.0f, 1.0f]
 
+			// Show Result
+			// Convert from radian to degree : degree = radian * 180 / Pi
 			if( confidence > 0 ){
-				std::cout << "Angle : " << ( angle * 180.0f ) / M_PI << ", Confidence : " << confidence << std::endl;
-				drowResult( audioMat, angle, confidence );
+				std::cout << "Angle : " << angle * 180.0f / M_PI << ", Confidence : " << confidence << std::endl;
 			}
 		}
 
-		cv::imshow( "Audio", audioMat );
-
-		if( cv::waitKey( 30 ) == VK_ESCAPE ){
-			break;
+		// Input Key ( Exit ESC key )
+		if( GetKeyState( VK_ESCAPE ) < 0 ){
+				break;
 		}
 	}
 
