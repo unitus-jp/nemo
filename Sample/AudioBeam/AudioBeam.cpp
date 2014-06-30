@@ -91,7 +91,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 			// Show Result
 			// Convert from radian to degree : degree = radian * 180 / Pi
-			if( confidence > 0 ){
+			if( confidence > 0.0f ){
 				std::system( "cls" );
 				std::cout << "Angle : " << angle * 180.0f / M_PI << ", Confidence : " << confidence << std::endl;
 			}
