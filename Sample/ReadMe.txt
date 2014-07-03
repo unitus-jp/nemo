@@ -101,6 +101,9 @@ http://www.buildinsider.net/small/kinectv2cpp
     6. What's New Kinect Studio v2? - March SDK Update
     http://www.buildinsider.net/small/kinectv2cpp/06
 
+    7. Kinect v2 Programming for C++ - AudioBeam part
+    http://www.buildinsider.net/small/kinectv2cpp/07
+
 
 ■About License
 License of this Sample Program suppose MIT License.
