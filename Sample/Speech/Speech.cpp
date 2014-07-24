@@ -246,8 +246,16 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 
 	hResult = pSpeechContext->SetInterest( SPFEI( SPEI_RECOGNITION ), SPFEI( SPEI_RECOGNITION ) );
+	if( FAILED( hResult ) ){
+		std::cerr << "Error : ISpRecoContext::SetInterest()" << std::endl;
+		return -1;
+	}
 
 	hResult = pSpeechContext->Resume( 0 );
+	if( FAILED( hResult ) ){
+		std::cerr << "Error : ISpRecoContext::Resume()" << std::endl;
+		return -1;
+	}
 
 	HANDLE hSpeechEvent = INVALID_HANDLE_VALUE;
 	hSpeechEvent = pSpeechContext->GetNotifyEventHandle();
