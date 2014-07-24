@@ -90,7 +90,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 
 	// Create Speech Stream Instance
-	ISpStream* pSpeechStream = nullptr;
+	ISpStream* pSpeechStream;
 	hResult = CoCreateInstance( CLSID_SpStream, NULL, CLSCTX_INPROC_SERVER, __uuidof( ISpStream ), ( void** )&pSpeechStream );
 	if( FAILED( hResult ) ){
 		std::cerr << "Error : CoCreateInstance( CLSID_SpStream )" << std::endl;
