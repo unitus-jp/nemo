@@ -39,6 +39,13 @@ Structure of this Sample Program is as follows.
     │  │  ├─AudioBeam.vcxproj
     │  │  └─AudioBeam.cpp
     │  │
+    │  ├─Speech
+    │  │  ├─Speech.vcxproj
+    │  │  ├─Speech.cpp
+    │  │  ├─KinectAudioStream.h
+    │  │  ├─KinectAudioStream.cpp
+    │  │  └─SpeechRecognition.grxml
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -56,8 +63,10 @@ This Sample Program is setting to be able to build in the following environments
 Please rewrite the appropriate setting depending on the environment.
 
     Visual Studio Express 2013 for Windows Desktop
-    Kinect for Windows SDK v2 Developer Preview 1406
+    Kinect for Windows SDK v2.0 Public Preview
     OpenCV 2.4.9
+    Speech Platform SDK 11
+    Kinect for Windows Language Packs v11.0 (en-US)
 
 
 ■Setting for OpenCV
@@ -134,3 +143,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/03/14 Add Infrared
 2014/04/18 Add Event
 2014/06/25 Add AudioBeam
+2014/07/24 Add Speech

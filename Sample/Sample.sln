@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Event", "Event\Event.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioBeam", "AudioBeam\AudioBeam.vcxproj", "{A0AD194D-9012-46A9-BC79-C08C8F7028CA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Speech", "Speech\Speech.vcxproj", "{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,6 +83,14 @@ Global
 		{A0AD194D-9012-46A9-BC79-C08C8F7028CA}.Release|Win32.Build.0 = Release|Win32
 		{A0AD194D-9012-46A9-BC79-C08C8F7028CA}.Release|x64.ActiveCfg = Release|x64
 		{A0AD194D-9012-46A9-BC79-C08C8F7028CA}.Release|x64.Build.0 = Release|x64
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Debug|Win32.Build.0 = Debug|Win32
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Debug|x64.ActiveCfg = Debug|x64
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Debug|x64.Build.0 = Debug|x64
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Release|Win32.ActiveCfg = Release|Win32
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Release|Win32.Build.0 = Release|Win32
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Release|x64.ActiveCfg = Release|x64
+		{62E3E504-DB3B-4BA9-AB73-DADFA51AA91D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

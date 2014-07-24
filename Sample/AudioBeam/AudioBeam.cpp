@@ -7,7 +7,6 @@
 #include <Windows.h>
 #include <Kinect.h>
 #include <iostream>
-#include <cstdlib>
 
 #define _USE_MATH_DEFINES
 #include <math.h>

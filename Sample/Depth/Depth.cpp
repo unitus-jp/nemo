@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <Kinect.h>
 #include <opencv2/opencv.hpp>
-
+#include <cstdlib>
 
 template<class Interface>
 inline void SafeRelease( Interface *& pInterfaceToRelease )
@@ -75,6 +75,15 @@ int _tmain( int argc, _TCHAR* argv[] )
 		// Frame
 		IDepthFrame* pDepthFrame = nullptr;
 		hResult = pDepthReader->AcquireLatestFrame( &pDepthFrame );
+
+		/*
+		USHORT max;
+		hResult = pDepthFrame->get_DepthMaxReliableDistance( &max );
+		if( SUCCEEDED(hResult) ){
+			std::cout << max << std::endl;
+		}
+		*/
+
 		if( SUCCEEDED( hResult ) ){
 			hResult = pDepthFrame->AccessUnderlyingBuffer( &bufferSize, reinterpret_cast<UINT16**>( &bufferMat.data ) );
 			if( SUCCEEDED( hResult ) ){
