@@ -66,7 +66,7 @@ Please rewrite the appropriate setting depending on the environment.
     Kinect for Windows SDK v2.0 Public Preview
     OpenCV 2.4.9
     Speech Platform SDK 11
-    Kinect for Windows Language Packs v11.0 (en-US)
+    Kinect for Windows SDK v2.0 Language Packs (en-US)
 
 
 ■Setting for OpenCV

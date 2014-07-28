@@ -16,7 +16,7 @@ Environment
 * OpenCV 2.4.9
 * Visual Studio 2013 Express for Windows Desktop
 * Speech Platform SDK 11
-* Kinect for Windows Language Packs v11.0 (en-US)
+* Kinect for Windows SDK v2.0 Language Packs (en-US)
 
 
 Contact
