@@ -165,7 +165,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		}
 		SafeRelease( pBodyFrame );
 
-
 		// BodyIndex Frame
 		IBodyIndexFrame* pBodyIndexFrame = nullptr;
 		hResult = pBodyIndexReader->AcquireLatestFrame( &pBodyIndexFrame );
