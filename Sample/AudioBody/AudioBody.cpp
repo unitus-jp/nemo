@@ -207,11 +207,11 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 
 	SafeRelease( pAudioSource );
-	SafeRelease( pBodyIndexSource );
 	SafeRelease( pBodySource );
+	SafeRelease( pBodyIndexSource );
 	SafeRelease( pAudioBeamReader );
-	SafeRelease( pBodyIndexReader );
 	SafeRelease( pBodyReader );
+	SafeRelease( pBodyIndexReader );
 	SafeRelease( pDescription );
 	if( pSensor ){
 		pSensor->Close();
