@@ -196,7 +196,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 			stream.str( "" );
 			stream << trackingIndex;
 			cv::putText( bodyIndexMat, "trackingIndex : " + stream.str(), cv::Point( 20, 40 ), cv::FONT_HERSHEY_SIMPLEX, 0.5f, cv::Scalar( 255, 255, 255 ), 1, CV_AA );
-
 		}
 
 		cv::imshow( "AudioBody", bodyIndexMat );
