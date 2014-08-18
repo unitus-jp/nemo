@@ -46,6 +46,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─KinectAudioStream.cpp
     │  │  └─SpeechRecognition.grxml
     │  │
+    │  ├─AudioBody
+    │  │  ├─AudioBody.vcxproj
+    │  │  └─AudioBody.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -144,3 +148,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/04/18 Add Event
 2014/06/25 Add AudioBeam
 2014/07/24 Add Speech
+2014/08/19 Add AudioBody
