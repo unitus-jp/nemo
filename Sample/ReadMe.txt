@@ -50,6 +50,14 @@ Structure of this Sample Program is as follows.
     │  │  ├─AudioBody.vcxproj
     │  │  └─AudioBody.cpp
     │  │
+    │  ├─Gesture
+    │  │  ├─Gesture.vcxproj
+    │  │  └─Gesture.cpp
+    │  │
+    │  ├─Face
+    │  │  ├─Face.vcxproj
+    │  │  └─Face.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -149,3 +157,5 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/06/25 Add AudioBeam
 2014/07/24 Add Speech
 2014/08/19 Add AudioBody
+2014/08/20 Add Gesture
+2014/08/20 Add Face
