@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Speech", "Speech\Speech.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioBody", "AudioBody\AudioBody.vcxproj", "{15B5834A-2909-451E-850F-BD6B420BDFFC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gesture", "Gesture\Gesture.vcxproj", "{86B8598D-069C-40AC-AE3A-7351E93FFA2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -101,6 +103,14 @@ Global
 		{15B5834A-2909-451E-850F-BD6B420BDFFC}.Release|Win32.Build.0 = Release|Win32
 		{15B5834A-2909-451E-850F-BD6B420BDFFC}.Release|x64.ActiveCfg = Release|x64
 		{15B5834A-2909-451E-850F-BD6B420BDFFC}.Release|x64.Build.0 = Release|x64
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Debug|Win32.Build.0 = Debug|Win32
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Debug|x64.ActiveCfg = Debug|x64
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Debug|x64.Build.0 = Debug|x64
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Release|Win32.ActiveCfg = Release|Win32
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Release|Win32.Build.0 = Release|Win32
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Release|x64.ActiveCfg = Release|x64
+		{86B8598D-069C-40AC-AE3A-7351E93FFA2D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
