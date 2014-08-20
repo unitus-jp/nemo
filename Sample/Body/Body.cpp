@@ -184,6 +184,85 @@ int _tmain( int argc, _TCHAR* argv[] )
 								}
 							}
 						}
+
+						/*// Activity
+						UINT capacity = 0;
+						DetectionResult detectionResults = DetectionResult::DetectionResult_Unknown;
+						hResult = pBody[count]->GetActivityDetectionResults( capacity, &detectionResults );
+						if( SUCCEEDED( hResult ) ){
+							if( detectionResults == DetectionResult::DetectionResult_Yes ){
+								switch( capacity ){
+									case Activity::Activity_EyeLeftClosed:
+										std::cout << "Activity_EyeLeftClosed" << std::endl;
+										break;
+									case Activity::Activity_EyeRightClosed:
+										std::cout << "Activity_EyeRightClosed" << std::endl;
+										break;
+									case Activity::Activity_MouthOpen:
+										std::cout << "Activity_MouthOpen" << std::endl;
+										break;
+									case Activity::Activity_MouthMoved:
+										std::cout << "Activity_MouthMoved" << std::endl;
+										break;
+									case Activity::Activity_LookingAway:
+										std::cout << "Activity_LookingAway" << std::endl;
+										break;
+									default:
+										break;
+								}
+							}
+						}
+						else{
+							std::cerr << "Error : IBody::GetActivityDetectionResults()" << std::endl;
+						}*/
+
+						/*// Appearance
+						capacity = 0;
+						detectionResults = DetectionResult::DetectionResult_Unknown;
+						hResult = pBody[count]->GetAppearanceDetectionResults( capacity, &detectionResults );
+						if( SUCCEEDED( hResult ) ){
+							if( detectionResults == DetectionResult::DetectionResult_Yes ){
+								switch( capacity ){
+									case Appearance::Appearance_WearingGlasses:
+										std::cout << "Appearance_WearingGlasses" << std::endl;
+										break;
+									default:
+										break;
+								}
+							}
+						}
+						else{
+							std::cerr << "Error : IBody::GetAppearanceDetectionResults()" << std::endl;
+						}*/
+
+						/*// Expression
+						capacity = 0;
+						detectionResults = DetectionResult::DetectionResult_Unknown;
+						hResult = pBody[count]->GetExpressionDetectionResults( capacity, &detectionResults );
+						if( SUCCEEDED( hResult ) ){
+							if( detectionResults == DetectionResult::DetectionResult_Yes ){
+								switch( capacity ){
+									case Expression::Expression_Happy:
+										std::cout << "Expression_Happy" << std::endl;
+										break;
+									case Expression::Expression_Neutral:
+										std::cout << "Expression_Neutral" << std::endl;
+										break;
+									default:
+										break;
+								}
+							}
+						}
+						else{
+							std::cerr << "Error : IBody::GetExpressionDetectionResults()" << std::endl;
+						}*/
+
+						// Lean
+						PointF amount;
+						hResult = pBody[count]->get_Lean( &amount );
+						if( SUCCEEDED( hResult ) ){
+							std::cout << "amount : " << amount.X << ", " << amount.Y << std::endl;
+						}
 					}
 				}
 				cv::resize( bufferMat, bodyMat, cv::Size(), 0.5, 0.5 );
