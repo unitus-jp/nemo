@@ -182,7 +182,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 							}
 						}
 
-						// Set TrackingID to Detect Gesture 
+						// Set TrackingID to Detect Gesture
 						pBody[count]->get_TrackingId( &trackingId );
 						pGestureSource->put_TrackingId( trackingId );
 					}
