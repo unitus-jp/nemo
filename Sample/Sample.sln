@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Face", "Face\Face.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LongExposureInfrared", "LongExposureInfrared\LongExposureInfrared.vcxproj", "{D1E65A0F-30AE-4299-9EDB-9B83ABD56743}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoodinateMapper", "CoodinateMapper\CoodinateMapper.vcxproj", "{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -131,6 +133,14 @@ Global
 		{D1E65A0F-30AE-4299-9EDB-9B83ABD56743}.Release|Win32.Build.0 = Release|Win32
 		{D1E65A0F-30AE-4299-9EDB-9B83ABD56743}.Release|x64.ActiveCfg = Release|x64
 		{D1E65A0F-30AE-4299-9EDB-9B83ABD56743}.Release|x64.Build.0 = Release|x64
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Debug|Win32.Build.0 = Debug|Win32
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Debug|x64.ActiveCfg = Debug|x64
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Debug|x64.Build.0 = Debug|x64
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|Win32.ActiveCfg = Release|Win32
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|Win32.Build.0 = Release|Win32
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|x64.ActiveCfg = Release|x64
+		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

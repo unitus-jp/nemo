@@ -62,6 +62,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─LongExposureInfrared.vcxproj
     │  │  └─LongExposureInfrared.cpp
     │  │
+    │  ├─CoodinateMapper
+    │  │  ├─CoodinateMapper.vcxproj
+    │  │  └─CoodinateMapper.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -164,3 +168,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/08/20 Add Gesture
 2014/08/20 Add Face
 2014/08/21 Add LongExposureInfrared
+2014/08/21 Add CoodinateMapper
