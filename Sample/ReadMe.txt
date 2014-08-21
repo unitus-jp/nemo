@@ -66,6 +66,12 @@ Structure of this Sample Program is as follows.
     │  │  ├─CoodinateMapper.vcxproj
     │  │  └─CoodinateMapper.cpp
     │  │
+    │  ├─Fusion
+    │  │  ├─Fusion.vcxproj
+    │  │  ├─Fusion.cpp
+    │  │  ├─KinectFusionHelper.h
+    │  │  └─KinectFusionHelper.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -169,3 +175,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/08/20 Add Face
 2014/08/21 Add LongExposureInfrared
 2014/08/21 Add CoodinateMapper
+2014/08/21 Add Fusion

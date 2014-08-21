@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LongExposureInfrared", "Lon
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoodinateMapper", "CoodinateMapper\CoodinateMapper.vcxproj", "{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fusion", "Fusion\Fusion.vcxproj", "{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -141,6 +143,14 @@ Global
 		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|Win32.Build.0 = Release|Win32
 		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|x64.ActiveCfg = Release|x64
 		{DED46CC5-0CF0-42AD-8BF9-5A2D849D400A}.Release|x64.Build.0 = Release|x64
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Debug|Win32.Build.0 = Debug|Win32
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Debug|x64.ActiveCfg = Debug|x64
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Debug|x64.Build.0 = Debug|x64
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Release|Win32.ActiveCfg = Release|Win32
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Release|Win32.Build.0 = Release|Win32
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Release|x64.ActiveCfg = Release|x64
+		{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
