@@ -58,6 +58,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─Face.vcxproj
     │  │  └─Face.cpp
     │  │
+    │  ├─LongExposureInfrared
+    │  │  ├─LongExposureInfrared.vcxproj
+    │  │  └─LongExposureInfrared.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -159,3 +163,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/08/19 Add AudioBody
 2014/08/20 Add Gesture
 2014/08/20 Add Face
+2014/08/21 Add LongExposureInfrared
