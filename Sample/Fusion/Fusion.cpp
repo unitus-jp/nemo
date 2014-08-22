@@ -178,7 +178,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 		// Reconstruction Process
 		pReconstruction->GetCurrentWorldToCameraTransform( &worldToCameraTransform );
-		hResult = pReconstruction->ProcessFrame( pSmoothDepthFloatImageFrame, NUI_FUSION_DEFAULT_ALIGN_ITERATION_COUNT, NUI_FUSION_DEFAULT_INTEGRATION_WEIGHT, &worldToCameraTransform );
+		hResult = pReconstruction->ProcessFrame( pSmoothDepthFloatImageFrame, NUI_FUSION_DEFAULT_ALIGN_ITERATION_COUNT, NUI_FUSION_DEFAULT_INTEGRATION_WEIGHT, nullptr, &worldToCameraTransform );
 		if( FAILED( hResult ) ){
 			static int errorCount = 0;
 			errorCount++;
