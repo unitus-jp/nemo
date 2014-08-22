@@ -53,11 +53,13 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IVisualGestureBuilderFrameSource* pGestureSource;
-	hResult = CreateVisualGestureBuilderFrameSource( pSensor, 0, &pGestureSource );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : CreateVisualGestureBuilderFrameSource()" << std::endl;
-		return -1;
+	IVisualGestureBuilderFrameSource* pGestureSource[BODY_COUNT];
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		hResult = CreateVisualGestureBuilderFrameSource( pSensor, 0, &pGestureSource[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateVisualGestureBuilderFrameSource()" << std::endl;
+			return -1;
+		}
 	}
 
 	// Reader
@@ -75,11 +77,13 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IVisualGestureBuilderFrameReader* pGestureReader;
-	hResult = pGestureSource->OpenReader( &pGestureReader );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IVisualGestureBuilderFrameSource::OpenReader()" << std::endl;
-		return -1;
+	IVisualGestureBuilderFrameReader* pGestureReader[BODY_COUNT];
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		hResult = pGestureSource[count]->OpenReader( &pGestureReader[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IVisualGestureBuilderFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
 	}
 
 	// Description
@@ -98,7 +102,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	cv::Mat bufferMat( height, width, CV_8UC4 );
 	cv::Mat bodyMat( height / 2, width / 2, CV_8UC4 );
-	cv::namedWindow( "Body" );
+	cv::namedWindow( "Gesture" );
 
 	// Color Table
 	cv::Vec3b color[6];
@@ -134,13 +138,20 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 
 	IGesture* pGesture;
-	hResult = pGestureDatabase->get_AvailableGestures( 0, &pGesture );
-	if( SUCCEEDED( hResult ) ){
-		hResult = pGestureSource->AddGesture( pGesture );
-		hResult = pGestureSource->SetIsEnabled( pGesture, true );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : IVisualGestureBuilderFrameSource::AddGesture()" << std::endl;
-			return -1;
+	hResult = pGestureDatabase->get_AvailableGestures( 1, &pGesture );
+	if( SUCCEEDED( hResult ) && pGesture != nullptr ){
+		for( int count = 0; count < BODY_COUNT; count++ ){
+			hResult = pGestureSource[count]->AddGesture( pGesture );
+			if( FAILED( hResult ) ){
+				std::cerr << "Error : IVisualGestureBuilderFrameSource::AddGesture()" << std::endl;
+				return -1;
+			}
+
+			hResult = pGestureSource[count]->SetIsEnabled( pGesture, true );
+			if( FAILED( hResult ) ){
+				std::cerr << "Error : IVisualGestureBuilderFrameSource::SetIsEnabled()" << std::endl;
+				return -1;
+			}
 		}
 	}
 
@@ -156,7 +167,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		}
 		SafeRelease( pColorFrame );
 
-		UINT64 trackingId = _UI64_MAX;
 		IBodyFrame* pBodyFrame = nullptr;
 		hResult = pBodyReader->AcquireLatestFrame( &pBodyFrame );
 		if( SUCCEEDED( hResult ) ){
@@ -167,10 +177,10 @@ int _tmain( int argc, _TCHAR* argv[] )
 					BOOLEAN bTracked = false;
 					hResult = pBody[count]->get_IsTracked( &bTracked );
 					if( SUCCEEDED( hResult ) && bTracked ){
+						// Joint
 						Joint joint[JointType::JointType_Count];
 						hResult = pBody[count]->GetJoints( JointType::JointType_Count, joint );
 						if( SUCCEEDED( hResult ) ){
-							// Joint
 							for( int type = 0; type < JointType::JointType_Count; type++ ){
 								ColorSpacePoint colorSpacePoint = { 0 };
 								pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
@@ -183,8 +193,11 @@ int _tmain( int argc, _TCHAR* argv[] )
 						}
 
 						// Set TrackingID to Detect Gesture
-						pBody[count]->get_TrackingId( &trackingId );
-						pGestureSource->put_TrackingId( trackingId );
+						UINT64 trackingId = _UI64_MAX;
+						hResult = pBody[count]->get_TrackingId( &trackingId );
+						if( SUCCEEDED( hResult ) ){
+							pGestureSource[count]->put_TrackingId( trackingId );
+						}
 					}
 				}
 				cv::resize( bufferMat, bodyMat, cv::Size(), 0.5, 0.5 );
@@ -193,24 +206,29 @@ int _tmain( int argc, _TCHAR* argv[] )
 		SafeRelease( pBodyFrame );
 
 		// Detect Gesture
-		IVisualGestureBuilderFrame* pGestureFrame = nullptr;
-		hResult = pGestureReader->CalculateAndAcquireLatestFrame( &pGestureFrame );
-		if( SUCCEEDED( hResult ) ){
-			IDiscreteGestureResult* pGestureResult = nullptr;
-			hResult = pGestureFrame->get_DiscreteGestureResult( pGesture, &pGestureResult );
-			if( SUCCEEDED( hResult ) ){
-				BOOLEAN bDetected = false;
-				float confidence = 0.0f;
-				hResult = pGestureResult->get_Detected( &bDetected );
-				if( SUCCEEDED( hResult ) && bDetected ){
-					std::cout << "Detected Gesture" << std::endl;
+		for( int count = 0; count < BODY_COUNT; count++ ){
+			IVisualGestureBuilderFrame* pGestureFrame = nullptr;
+			hResult = pGestureReader[count]->CalculateAndAcquireLatestFrame( &pGestureFrame );
+			if( SUCCEEDED( hResult ) && pGestureFrame != nullptr ){
+				BOOLEAN bGestureTracked = false;
+				hResult = pGestureFrame->get_IsTrackingIdValid( &bGestureTracked );
+				if( SUCCEEDED(hResult) && bGestureTracked ){
+					IDiscreteGestureResult* pGestureResult = nullptr;
+					hResult = pGestureFrame->get_DiscreteGestureResult( pGesture, &pGestureResult );
+					if( SUCCEEDED( hResult ) && pGestureResult != nullptr ){
+						BOOLEAN bDetected = false;
+						hResult = pGestureResult->get_Detected( &bDetected );
+						if( SUCCEEDED( hResult ) && bDetected ){
+							std::cout << "Detected Gesture" << std::endl;
+						}
+					}
+					SafeRelease( pGestureResult );
 				}
 			}
-			SafeRelease( pGestureResult );
+			SafeRelease( pGestureFrame );
 		}
-		SafeRelease( pGestureFrame );
 
-		cv::imshow( "Body", bodyMat );
+		cv::imshow( "Gesture", bodyMat );
 
 		if( cv::waitKey( 10 ) == VK_ESCAPE ){
 			break;
@@ -219,13 +237,18 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	SafeRelease( pColorSource );
 	SafeRelease( pBodySource );
-	SafeRelease( pGestureSource );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pGestureSource[count] );
+	}
 	SafeRelease( pColorReader );
 	SafeRelease( pBodyReader );
-	SafeRelease( pGestureReader );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pGestureReader[count] );
+	}
 	SafeRelease( pDescription );
 	SafeRelease( pCoordinateMapper );
 	SafeRelease( pGestureDatabase );
+	SafeRelease( pGesture );
 	if( pSensor ){
 		pSensor->Close();
 	}
