@@ -223,7 +223,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 				if( SUCCEEDED( hResult ) && bFaceTracked ){
 					IFaceFrameResult* pFaceResult = nullptr;
 					hResult = pFaceFrame->get_FaceFrameResult( &pFaceResult );
-					if( SUCCEEDED( hResult ) && pFaceReader != nullptr ){
+					if( SUCCEEDED( hResult ) && pFaceResult != nullptr ){
 						UINT64 trackingId;
 						hResult = pFaceResult->get_TrackingId( &trackingId );
 						if( SUCCEEDED(hResult) ){
