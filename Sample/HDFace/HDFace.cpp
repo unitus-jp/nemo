@@ -188,8 +188,8 @@ int _tmain( int argc, _TCHAR* argv[] )
 						hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment );
 						if( SUCCEEDED( hResult ) ){
 							IFaceModel* pFaceModel;
-							std::vector<float> pDeformation( FaceShapeDeformations::FaceShapeDeformations_Count );
-							hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &pDeformation[0], &pFaceModel );
+							std::vector<float> deformations( FaceShapeDeformations::FaceShapeDeformations_Count );
+							hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &deformations[0], &pFaceModel );
 							if( SUCCEEDED( hResult ) && pFaceModel != nullptr ){
 								std::vector<CameraSpacePoint> facePoints( 1347 );
 								hResult = pFaceModel->CalculateVerticesForAlignment( pFaceAlignment, 1347, &facePoints[0] );
