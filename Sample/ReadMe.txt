@@ -72,6 +72,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─KinectFusionHelper.h
     │  │  └─KinectFusionHelper.cpp
     │  │
+    │  ├─HDFace
+    │  │  ├─HDFace.vcxproj
+    │  │  └─HDFace.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -176,3 +180,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/08/21 Add LongExposureInfrared
 2014/08/21 Add CoodinateMapper
 2014/08/21 Add Fusion
+2014/08/26 Add HDFace

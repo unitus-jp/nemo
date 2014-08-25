@@ -16,6 +16,7 @@
     </Link>
     <PostBuildEvent>
       <Command Condition="'$(ProjectName)'=='Face'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x86" "$(OutDir)" /e /y /i /r</Command>
+      <Command Condition="'$(ProjectName)'=='HDFace'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x86" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Fusion'">xcopy "$(KINECTSDK20_DIR)\Redist\Fusion\x86" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Gesture'">xcopy "$(KINECTSDK20_DIR)\Redist\VGB\x86" "$(OutDir)" /e /y /i /r &amp; if exist "$(ProjectDir)\*.gba" copy "$(ProjectDir)\*.gba" "$(OutDir)" /y</Command>
     </PostBuildEvent>
@@ -34,6 +35,7 @@
     </Link>
     <PostBuildEvent>
       <Command Condition="'$(ProjectName)'=='Face'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x86" "$(OutDir)" /e /y /i /r</Command>
+      <Command Condition="'$(ProjectName)'=='HDFace'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x86" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Fusion'">xcopy "$(KINECTSDK20_DIR)\Redist\Fusion\x86" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Gesture'">xcopy "$(KINECTSDK20_DIR)\Redist\VGB\x86" "$(OutDir)" /e /y /i /r &amp; if exist "$(ProjectDir)\*.gba" copy "$(ProjectDir)\*.gba" "$(OutDir)" /y</Command>
     </PostBuildEvent>
@@ -52,6 +54,7 @@
     </Link>
     <PostBuildEvent>
       <Command Condition="'$(ProjectName)'=='Face'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x64" "$(OutDir)" /e /y /i /r</Command>
+      <Command Condition="'$(ProjectName)'=='HDFace'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x64" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Fusion'">xcopy "$(KINECTSDK20_DIR)\Redist\Fusion\x64" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Gesture'">xcopy "$(KINECTSDK20_DIR)\Redist\VGB\x64" "$(OutDir)" /e /y /i /r &amp; if exist "$(ProjectDir)\*.gba" copy "$(ProjectDir)\*.gba" "$(OutDir)" /y</Command>
     </PostBuildEvent>
@@ -70,6 +73,7 @@
     </Link>
     <PostBuildEvent>
       <Command Condition="'$(ProjectName)'=='Face'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x64" "$(OutDir)" /e /y /i /r</Command>
+      <Command Condition="'$(ProjectName)'=='HDFace'">xcopy "$(KINECTSDK20_DIR)\Redist\Face\x64" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Fusion'">xcopy "$(KINECTSDK20_DIR)\Redist\Fusion\x64" "$(OutDir)" /e /y /i /r</Command>
       <Command Condition="'$(ProjectName)'=='Gesture'">xcopy "$(KINECTSDK20_DIR)\Redist\VGB\x64" "$(OutDir)" /e /y /i /r &amp; if exist "$(ProjectDir)\*.gba" copy "$(ProjectDir)\*.gba" "$(OutDir)" /y</Command>
     </PostBuildEvent>
