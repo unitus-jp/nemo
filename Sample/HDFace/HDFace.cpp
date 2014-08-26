@@ -186,7 +186,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 					hResult = CreateFaceAlignment( &pFaceAlignment );
 					if( SUCCEEDED( hResult ) && pFaceAlignment != nullptr ){
 						hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment );
-						if( SUCCEEDED( hResult ) ){
+						if( SUCCEEDED( hResult ) && pFaceAlignment != nullptr ){
 							IFaceModel* pFaceModel;
 							std::vector<float> deformations( FaceShapeDeformations::FaceShapeDeformations_Count );
 							hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &deformations[0], &pFaceModel );
@@ -198,7 +198,11 @@ int _tmain( int argc, _TCHAR* argv[] )
 										ColorSpacePoint colorSpacePoint;
 										hResult = pCoordinateMapper->MapCameraPointToColorSpace( facePoints[point], &colorSpacePoint );
 										if( SUCCEEDED( hResult ) ){
-											cv::circle( bufferMat, cv::Point( colorSpacePoint.X, colorSpacePoint.Y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+											int x = static_cast<int>( colorSpacePoint.X );
+											int y = static_cast<int>( colorSpacePoint.Y );
+											if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
+												cv::circle( bufferMat, cv::Point( static_cast< int >( colorSpacePoint.X ), static_cast< int >( colorSpacePoint.Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+											}
 										}
 									}
 								}
