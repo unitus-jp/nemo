@@ -134,7 +134,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		SafeRelease( pColorFrame );
 
 		// Body Frame
-		cv::Point point[BODY_COUNT];
 		IBodyFrame* pBodyFrame = nullptr;
 		hResult = pBodyReader->AcquireLatestFrame( &pBodyFrame );
 		if( SUCCEEDED( hResult ) ){
