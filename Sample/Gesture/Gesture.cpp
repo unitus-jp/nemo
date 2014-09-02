@@ -123,7 +123,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	// Create Gesture Dataase from File (*.gba)
 	IVisualGestureBuilderDatabase* pGestureDatabase;
-	hResult = CreateVisualGestureBuilderDatabaseInstanceFromFile( L"HandUp.gba", &pGestureDatabase );
+	hResult = CreateVisualGestureBuilderDatabaseInstanceFromFile( L"HandUp.gba"/*L"Swipe.gba"*/, &pGestureDatabase );
 	if( FAILED( hResult ) ){
 		std::cerr << "Error : CreateVisualGestureBuilderDatabaseInstanceFromFile()" << std::endl;
 		return -1;
@@ -212,16 +212,31 @@ int _tmain( int argc, _TCHAR* argv[] )
 			if( SUCCEEDED( hResult ) && pGestureFrame != nullptr ){
 				BOOLEAN bGestureTracked = false;
 				hResult = pGestureFrame->get_IsTrackingIdValid( &bGestureTracked );
-				if( SUCCEEDED(hResult) && bGestureTracked ){
+				if( SUCCEEDED( hResult ) && bGestureTracked ){
+					// Discrete Gesture (Sample HandUp.gba is Action to Hand Up above the head.)
 					IDiscreteGestureResult* pGestureResult = nullptr;
 					hResult = pGestureFrame->get_DiscreteGestureResult( pGesture, &pGestureResult );
 					if( SUCCEEDED( hResult ) && pGestureResult != nullptr ){
 						BOOLEAN bDetected = false;
 						hResult = pGestureResult->get_Detected( &bDetected );
 						if( SUCCEEDED( hResult ) && bDetected ){
+							std::system( "cls" );
 							std::cout << "Detected Gesture" << std::endl;
 						}
 					}
+
+					/*// Continuous Gesture (Sample Swipe.gba is Action to Swipe the hand in horizontal direction.)
+					IContinuousGestureResult* pGestureResult = nullptr;
+					hResult = pGestureFrame->get_ContinuousGestureResult( pGesture, &pGestureResult );
+					if( SUCCEEDED( hResult ) && pGestureResult != nullptr ){
+						float progress = 0.0f;
+						hResult = pGestureResult->get_Progress( &progress );
+						if( SUCCEEDED( hResult ) ){
+							std::system( "cls" );
+							std::cout << "Progress: " + std::to_string( progress ) << std::endl;
+						}
+					}*/
+
 					SafeRelease( pGestureResult );
 				}
 			}
