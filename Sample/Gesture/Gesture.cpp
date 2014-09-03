@@ -206,6 +206,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		SafeRelease( pBodyFrame );
 
 		// Detect Gesture
+		std::system( "cls" );
 		for( int count = 0; count < BODY_COUNT; count++ ){
 			IVisualGestureBuilderFrame* pGestureFrame = nullptr;
 			hResult = pGestureReader[count]->CalculateAndAcquireLatestFrame( &pGestureFrame );
@@ -220,7 +221,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 						BOOLEAN bDetected = false;
 						hResult = pGestureResult->get_Detected( &bDetected );
 						if( SUCCEEDED( hResult ) && bDetected ){
-							std::system( "cls" );
 							std::cout << "Detected Gesture" << std::endl;
 						}
 					}
@@ -232,7 +232,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 						float progress = 0.0f;
 						hResult = pGestureResult->get_Progress( &progress );
 						if( SUCCEEDED( hResult ) ){
-							std::system( "cls" );
 							std::cout << "Progress: " + std::to_string( progress ) << std::endl;
 						}
 					}*/
