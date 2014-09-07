@@ -19,9 +19,9 @@ Environment
 * Kinect for Windows SDK v2.0 Language Packs (en-US)
 
 
-ライセンス
-----------
-Copyright &copy; 2013 Tsukasa SUGIURA, Kaoru NAKAMURA  
+License
+-------
+Copyright &copy; 2014 Tsukasa SUGIURA  
 Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php "MIT License | Open Source Initiative").
 
 
