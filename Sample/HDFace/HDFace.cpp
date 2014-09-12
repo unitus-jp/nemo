@@ -121,6 +121,27 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
+	// Create Face Alignment
+	IFaceAlignment* pFaceAlignment[BODY_COUNT];
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		hResult = CreateFaceAlignment( &pFaceAlignment[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateFaceAlignment()" << std::endl;
+			return -1;
+		}
+	}
+
+	// Create Face Model
+	IFaceModel* pFaceModel[BODY_COUNT];
+	std::vector<std::vector<float>> deformations( BODY_COUNT, std::vector<float>( FaceShapeDeformations::FaceShapeDeformations_Count ) );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &deformations[count][0], &pFaceModel[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateFaceModel()" << std::endl;
+			return -1;
+		}
+	}
+
 	while( 1 ){
 		// Color Frame
 		IColorFrame* pColorFrame = nullptr;
@@ -144,20 +165,20 @@ int _tmain( int argc, _TCHAR* argv[] )
 					BOOLEAN bTracked = false;
 					hResult = pBody[count]->get_IsTracked( &bTracked );
 					if( SUCCEEDED( hResult ) && bTracked ){
-						//// Joint
-						//Joint joint[JointType::JointType_Count];
-						//hResult = pBody[count]->GetJoints( JointType::JointType_Count, joint );
-						//if( SUCCEEDED( hResult ) ){
-						//	for( int type = 0; type < JointType::JointType_Count; type++ ){
-						//		ColorSpacePoint colorSpacePoint = { 0 };
-						//		pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
-						//		int x = static_cast<int>( colorSpacePoint.X );
-						//		int y = static_cast<int>( colorSpacePoint.Y );
-						//		if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-						//			cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
-						//		}
-						//	}
-						//}
+						// Joint
+						Joint joint[JointType::JointType_Count];
+						hResult = pBody[count]->GetJoints( JointType::JointType_Count, joint );
+						if( SUCCEEDED( hResult ) ){
+							for( int type = 0; type < JointType::JointType_Count; type++ ){
+								ColorSpacePoint colorSpacePoint = { 0 };
+								pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
+								int x = static_cast<int>( colorSpacePoint.X );
+								int y = static_cast<int>( colorSpacePoint.Y );
+								if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
+									cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+								}
+							}
+						}
 
 						// Set TrackingID to Detect Face
 						UINT64 trackingId = _UI64_MAX;
@@ -181,35 +202,24 @@ int _tmain( int argc, _TCHAR* argv[] )
 				BOOLEAN bFaceTracked = false;
 				hResult = pHDFaceFrame->get_IsFaceTracked( &bFaceTracked );
 				if( SUCCEEDED( hResult ) && bTrackingIdValid && bFaceTracked ){
-					IFaceAlignment* pFaceAlignment = nullptr;
-					hResult = CreateFaceAlignment( &pFaceAlignment );
+					hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment[count] );
 					if( SUCCEEDED( hResult ) && pFaceAlignment != nullptr ){
-						hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment );
-						if( SUCCEEDED( hResult ) && pFaceAlignment != nullptr ){
-							IFaceModel* pFaceModel;
-							std::vector<float> deformations( FaceShapeDeformations::FaceShapeDeformations_Count );
-							hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &deformations[0], &pFaceModel );
-							if( SUCCEEDED( hResult ) && pFaceModel != nullptr ){
-								std::vector<CameraSpacePoint> facePoints( 1347 );
-								hResult = pFaceModel->CalculateVerticesForAlignment( pFaceAlignment, 1347, &facePoints[0] );
+						std::vector<CameraSpacePoint> facePoints( 1347 );
+						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], 1347, &facePoints[0] );
+						if( SUCCEEDED( hResult ) ){
+							for( int point = 0; point < 1346; point++ ){
+								ColorSpacePoint colorSpacePoint;
+								hResult = pCoordinateMapper->MapCameraPointToColorSpace( facePoints[point], &colorSpacePoint );
 								if( SUCCEEDED( hResult ) ){
-									for( int point = 0; point < 1346; point++ ){
-										ColorSpacePoint colorSpacePoint;
-										hResult = pCoordinateMapper->MapCameraPointToColorSpace( facePoints[point], &colorSpacePoint );
-										if( SUCCEEDED( hResult ) ){
-											int x = static_cast<int>( colorSpacePoint.X );
-											int y = static_cast<int>( colorSpacePoint.Y );
-											if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-												cv::circle( bufferMat, cv::Point( static_cast< int >( colorSpacePoint.X ), static_cast< int >( colorSpacePoint.Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
-											}
-										}
+									int x = static_cast<int>( colorSpacePoint.X );
+									int y = static_cast<int>( colorSpacePoint.Y );
+									if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
+										cv::circle( bufferMat, cv::Point( static_cast< int >( colorSpacePoint.X ), static_cast< int >( colorSpacePoint.Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
 									}
 								}
 							}
-							SafeRelease( pFaceModel );
 						}
 					}
-					SafeRelease( pFaceAlignment );
 				}
 			}
 			SafeRelease( pHDFaceFrame );
@@ -235,6 +245,12 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 	SafeRelease( pDescription );
 	SafeRelease( pCoordinateMapper );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pFaceAlignment[count] );
+	}
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pFaceModel[count] );
+	}
 	if( pSensor ){
 		pSensor->Close();
 	}
