@@ -162,29 +162,33 @@ int _tmain( int argc, _TCHAR* argv[] )
 			hResult = pBodyFrame->GetAndRefreshBodyData( BODY_COUNT, pBody );
 			if( SUCCEEDED( hResult ) ){
 				for( int count = 0; count < BODY_COUNT; count++ ){
-					BOOLEAN bTracked = false;
-					hResult = pBody[count]->get_IsTracked( &bTracked );
-					if( SUCCEEDED( hResult ) && bTracked ){
-						// Joint
-						Joint joint[JointType::JointType_Count];
-						hResult = pBody[count]->GetJoints( JointType::JointType_Count, joint );
-						if( SUCCEEDED( hResult ) ){
-							for( int type = 0; type < JointType::JointType_Count; type++ ){
-								ColorSpacePoint colorSpacePoint = { 0 };
-								pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
-								int x = static_cast<int>( colorSpacePoint.X );
-								int y = static_cast<int>( colorSpacePoint.Y );
-								if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-									cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
-								}
-							}
-						}
+					BOOLEAN bTrackingIdValid = false;
+					hResult = pHDFaceSource[count]->get_IsTrackingIdValid( &bTrackingIdValid );
+					if( !bTrackingIdValid ){
+						BOOLEAN bTracked = false;
+						hResult = pBody[count]->get_IsTracked( &bTracked );
+						if( SUCCEEDED( hResult ) && bTracked ){
+							//// Joint
+							//Joint joint[JointType::JointType_Count];
+							//hResult = pBody[count]->GetJoints( JointType::JointType_Count, joint );
+							//if( SUCCEEDED( hResult ) ){
+							//	for( int type = 0; type < JointType::JointType_Count; type++ ){
+							//		ColorSpacePoint colorSpacePoint = { 0 };
+							//		pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
+							//		int x = static_cast< int >( colorSpacePoint.X );
+							//		int y = static_cast< int >( colorSpacePoint.Y );
+							//		if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
+							//			cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+							//		}
+							//	}
+							//}
 
-						// Set TrackingID to Detect Face
-						UINT64 trackingId = _UI64_MAX;
-						hResult = pBody[count]->get_TrackingId( &trackingId );
-						if( SUCCEEDED( hResult ) ){
-							pHDFaceSource[count]->put_TrackingId( trackingId );
+							// Set TrackingID to Detect Face
+							UINT64 trackingId = _UI64_MAX;
+							hResult = pBody[count]->get_TrackingId( &trackingId );
+							if( SUCCEEDED( hResult ) ){
+								pHDFaceSource[count]->put_TrackingId( trackingId );
+							}
 						}
 					}
 				}
@@ -197,17 +201,15 @@ int _tmain( int argc, _TCHAR* argv[] )
 			IHighDefinitionFaceFrame* pHDFaceFrame = nullptr;
 			hResult = pHDFaceReader[count]->AcquireLatestFrame( &pHDFaceFrame );
 			if( SUCCEEDED( hResult ) && pHDFaceFrame != nullptr ){
-				BOOLEAN bTrackingIdValid = false;
-				hResult = pHDFaceFrame->get_IsTrackingIdValid( &bTrackingIdValid );
 				BOOLEAN bFaceTracked = false;
 				hResult = pHDFaceFrame->get_IsFaceTracked( &bFaceTracked );
-				if( SUCCEEDED( hResult ) && bTrackingIdValid && bFaceTracked ){
+				if( SUCCEEDED( hResult ) && bFaceTracked ){
 					hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment[count] );
-					if( SUCCEEDED( hResult ) && pFaceAlignment != nullptr ){
+					if( SUCCEEDED( hResult ) && pFaceAlignment[count] != nullptr ){
 						std::vector<CameraSpacePoint> facePoints( 1347 );
 						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], 1347, &facePoints[0] );
 						if( SUCCEEDED( hResult ) ){
-							for( int point = 0; point < 1346; point++ ){
+							for( int point = 0; point < 1347; point++ ){
 								ColorSpacePoint colorSpacePoint;
 								hResult = pCoordinateMapper->MapCameraPointToColorSpace( facePoints[point], &colorSpacePoint );
 								if( SUCCEEDED( hResult ) ){
