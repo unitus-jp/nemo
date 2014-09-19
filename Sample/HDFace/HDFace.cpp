@@ -144,6 +144,13 @@ int _tmain( int argc, _TCHAR* argv[] )
 		}
 	}
 
+	UINT32 vertex = 0;
+	hResult = GetFaceModelVertexCount( &vertex ); // 1347
+	if( FAILED( hResult ) ){
+		std::cerr << "Error : GetFaceModelVertexCount()" << std::endl;
+		return -1;
+	}
+
 	while( 1 ){
 		// Color Frame
 		IColorFrame* pColorFrame = nullptr;
@@ -209,9 +216,9 @@ int _tmain( int argc, _TCHAR* argv[] )
 					hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment[count] );
 					if( SUCCEEDED( hResult ) && pFaceAlignment[count] != nullptr ){
 						std::vector<CameraSpacePoint> facePoints( 1347 );
-						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], 1347, &facePoints[0] );
+						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], vertex, &facePoints[0] );
 						if( SUCCEEDED( hResult ) ){
-							for( int point = 0; point < 1347; point++ ){
+							for( int point = 0; point < vertex; point++ ){
 								ColorSpacePoint colorSpacePoint;
 								hResult = pCoordinateMapper->MapCameraPointToColorSpace( facePoints[point], &colorSpacePoint );
 								if( SUCCEEDED( hResult ) ){
