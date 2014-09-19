@@ -53,15 +53,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IHighDefinitionFaceFrameSource* pHDFaceSource[BODY_COUNT];
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = CreateHighDefinitionFaceFrameSource( pSensor, &pHDFaceSource[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : CreateHighDefinitionFaceFrameSource()" << std::endl;
-			return -1;
-		}
-	}
-
 	// Reader
 	IColorFrameReader* pColorReader;
 	hResult = pColorSource->OpenReader( &pColorReader );
@@ -75,15 +66,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 	if( FAILED( hResult ) ){
 		std::cerr << "Error : IBodyFrameSource::OpenReader()" << std::endl;
 		return -1;
-	}
-
-	IHighDefinitionFaceFrameReader* pHDFaceReader[BODY_COUNT];
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = pHDFaceSource[count]->OpenReader( &pHDFaceReader[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenReader()" << std::endl;
-			return -1;
-		}
 	}
 
 	// Description
@@ -121,20 +103,40 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	// Create Face Alignment
+	IHighDefinitionFaceFrameSource* pHDFaceSource[BODY_COUNT];
+	IHighDefinitionFaceFrameReader* pHDFaceReader[BODY_COUNT];
 	IFaceAlignment* pFaceAlignment[BODY_COUNT];
+	IFaceModel* pFaceModel[BODY_COUNT];
+	std::vector<std::vector<float>> deformations( BODY_COUNT, std::vector<float>( FaceShapeDeformations::FaceShapeDeformations_Count ) );
 	for( int count = 0; count < BODY_COUNT; count++ ){
+		// Source
+		hResult = CreateHighDefinitionFaceFrameSource( pSensor, &pHDFaceSource[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateHighDefinitionFaceFrameSource()" << std::endl;
+			return -1;
+		}
+
+		// Reader
+		hResult = pHDFaceSource[count]->OpenReader( &pHDFaceReader[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
+
+		hResult = pHDFaceSource[count]->OpenReader( &pHDFaceReader[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
+
+		// Create Face Alignment
 		hResult = CreateFaceAlignment( &pFaceAlignment[count] );
 		if( FAILED( hResult ) ){
 			std::cerr << "Error : CreateFaceAlignment()" << std::endl;
 			return -1;
 		}
-	}
 
-	// Create Face Model
-	IFaceModel* pFaceModel[BODY_COUNT];
-	std::vector<std::vector<float>> deformations( BODY_COUNT, std::vector<float>( FaceShapeDeformations::FaceShapeDeformations_Count ) );
-	for( int count = 0; count < BODY_COUNT; count++ ){
+		// Create Face Model
 		hResult = CreateFaceModel( 1.0f, FaceShapeDeformations::FaceShapeDeformations_Count, &deformations[count][0], &pFaceModel[count] );
 		if( FAILED( hResult ) ){
 			std::cerr << "Error : CreateFaceModel()" << std::endl;
@@ -237,20 +239,13 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	SafeRelease( pColorSource );
 	SafeRelease( pBodySource );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pHDFaceSource[count] );
-	}
 	SafeRelease( pColorReader );
 	SafeRelease( pBodyReader );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pHDFaceReader[count] );
-	}
-	SafeRelease( pDescription );
 	SafeRelease( pCoordinateMapper );
 	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pHDFaceSource[count] );
+		SafeRelease( pHDFaceReader[count] );
 		SafeRelease( pFaceAlignment[count] );
-	}
-	for( int count = 0; count < BODY_COUNT; count++ ){
 		SafeRelease( pFaceModel[count] );
 	}
 	if( pSensor ){
