@@ -53,14 +53,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IVisualGestureBuilderFrameSource* pGestureSource[BODY_COUNT];
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = CreateVisualGestureBuilderFrameSource( pSensor, 0, &pGestureSource[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : CreateVisualGestureBuilderFrameSource()" << std::endl;
-			return -1;
-		}
-	}
+
 
 	// Reader
 	IColorFrameReader* pColorReader;
@@ -77,14 +70,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IVisualGestureBuilderFrameReader* pGestureReader[BODY_COUNT];
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = pGestureSource[count]->OpenReader( &pGestureReader[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : IVisualGestureBuilderFrameSource::OpenReader()" << std::endl;
-			return -1;
-		}
-	}
+
 
 	// Description
 	IFrameDescription* pDescription;
@@ -121,6 +107,24 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
+	IVisualGestureBuilderFrameSource* pGestureSource[BODY_COUNT];
+	IVisualGestureBuilderFrameReader* pGestureReader[BODY_COUNT];
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		// Source
+		hResult = CreateVisualGestureBuilderFrameSource( pSensor, 0, &pGestureSource[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateVisualGestureBuilderFrameSource()" << std::endl;
+			return -1;
+		}
+
+		// Reader
+		hResult = pGestureSource[count]->OpenReader( &pGestureReader[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IVisualGestureBuilderFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
+	}
+
 	// Create Gesture Dataase from File (*.gba)
 	IVisualGestureBuilderDatabase* pGestureDatabase;
 	hResult = CreateVisualGestureBuilderDatabaseInstanceFromFile( L"HandUp.gba"/*L"Swipe.gba"*/, &pGestureDatabase );
@@ -138,7 +142,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	}
 
 	IGesture* pGesture;
-	hResult = pGestureDatabase->get_AvailableGestures( 1, &pGesture );
+	hResult = pGestureDatabase->get_AvailableGestures( gestureCount, &pGesture );
 	if( SUCCEEDED( hResult ) && pGesture != nullptr ){
 		for( int count = 0; count < BODY_COUNT; count++ ){
 			hResult = pGestureSource[count]->AddGesture( pGesture );
@@ -251,16 +255,14 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	SafeRelease( pColorSource );
 	SafeRelease( pBodySource );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pGestureSource[count] );
-	}
 	SafeRelease( pColorReader );
 	SafeRelease( pBodyReader );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pGestureReader[count] );
-	}
 	SafeRelease( pDescription );
 	SafeRelease( pCoordinateMapper );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pGestureSource[count] );
+		SafeRelease( pGestureReader[count] );
+	}
 	SafeRelease( pGestureDatabase );
 	SafeRelease( pGesture );
 	if( pSensor ){
