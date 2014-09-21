@@ -71,26 +71,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	IFaceFrameSource* pFaceSource[BODY_COUNT];
-	DWORD features = FaceFrameFeatures::FaceFrameFeatures_BoundingBoxInColorSpace
-				   | FaceFrameFeatures::FaceFrameFeatures_PointsInColorSpace
-				   | FaceFrameFeatures::FaceFrameFeatures_RotationOrientation
-				   | FaceFrameFeatures::FaceFrameFeatures_Happy
-				   | FaceFrameFeatures::FaceFrameFeatures_RightEyeClosed
-				   | FaceFrameFeatures::FaceFrameFeatures_LeftEyeClosed
-				   | FaceFrameFeatures::FaceFrameFeatures_MouthOpen
-				   | FaceFrameFeatures::FaceFrameFeatures_MouthMoved
-				   | FaceFrameFeatures::FaceFrameFeatures_LookingAway
-				   | FaceFrameFeatures::FaceFrameFeatures_Glasses
-				   | FaceFrameFeatures::FaceFrameFeatures_FaceEngagement;
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = CreateFaceFrameSource( pSensor, 0, features, &pFaceSource[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : CreateFaceFrameSource" << std::endl;
-			return -1;
-		}
-	}
-
 	// Reader
 	IColorFrameReader* pColorReader;
 	hResult = pColorSource->OpenReader( &pColorReader );
@@ -104,15 +84,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 	if( FAILED( hResult ) ){
 		std::cerr << "Error : IBodyFrameSource::OpenReader()" << std::endl;
 		return -1;
-	}
-
-	IFaceFrameReader* pFaceReader[BODY_COUNT];
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		hResult = pFaceSource[count]->OpenReader( &pFaceReader[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : IFaceFrameSource::OpenReader()" << std::endl;
-			return -1;
-		}
 	}
 
 	// Description
@@ -142,6 +113,43 @@ int _tmain( int argc, _TCHAR* argv[] )
 	color[4] = cv::Vec3b( 255, 0, 255 );
 	color[5] = cv::Vec3b( 0, 255, 255 );
 
+	// Coordinate Mapper
+	ICoordinateMapper* pCoordinateMapper;
+	hResult = pSensor->get_CoordinateMapper( &pCoordinateMapper );
+	if( FAILED( hResult ) ){
+		std::cerr << "Error : IKinectSensor::get_CoordinateMapper()" << std::endl;
+		return -1;
+	}
+
+	IFaceFrameSource* pFaceSource[BODY_COUNT];
+	DWORD features = FaceFrameFeatures::FaceFrameFeatures_BoundingBoxInColorSpace
+		| FaceFrameFeatures::FaceFrameFeatures_PointsInColorSpace
+		| FaceFrameFeatures::FaceFrameFeatures_RotationOrientation
+		| FaceFrameFeatures::FaceFrameFeatures_Happy
+		| FaceFrameFeatures::FaceFrameFeatures_RightEyeClosed
+		| FaceFrameFeatures::FaceFrameFeatures_LeftEyeClosed
+		| FaceFrameFeatures::FaceFrameFeatures_MouthOpen
+		| FaceFrameFeatures::FaceFrameFeatures_MouthMoved
+		| FaceFrameFeatures::FaceFrameFeatures_LookingAway
+		| FaceFrameFeatures::FaceFrameFeatures_Glasses
+		| FaceFrameFeatures::FaceFrameFeatures_FaceEngagement;
+	IFaceFrameReader* pFaceReader[BODY_COUNT];
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		// Source
+		hResult = CreateFaceFrameSource( pSensor, 0, features, &pFaceSource[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : CreateFaceFrameSource" << std::endl;
+			return -1;
+		}
+
+		// Reader
+		hResult = pFaceSource[count]->OpenReader( &pFaceReader[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IFaceFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
+	}
+
 	// Face Property Table
 	std::string property[FaceProperty::FaceProperty_Count];
 	property[0] = "Happy";
@@ -152,14 +160,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 	property[5] = "MouthOpen";
 	property[6] = "MouthMoved";
 	property[7] = "LookingAway";
-
-	// Coordinate Mapper
-	ICoordinateMapper* pCoordinateMapper;
-	hResult = pSensor->get_CoordinateMapper( &pCoordinateMapper );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IKinectSensor::get_CoordinateMapper()" << std::endl;
-		return -1;
-	}
 
 	while( 1 ){
 		// Color Frame
@@ -299,16 +299,14 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	SafeRelease( pColorSource );
 	SafeRelease( pBodySource );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pFaceSource[count] );
-	}
 	SafeRelease( pColorReader );
 	SafeRelease( pBodyReader );
-	for( int count = 0; count < BODY_COUNT; count++ ){
-		SafeRelease( pFaceReader[count] );
-	}
 	SafeRelease( pDescription );
 	SafeRelease( pCoordinateMapper );
+	for( int count = 0; count < BODY_COUNT; count++ ){
+		SafeRelease( pFaceSource[count] );
+		SafeRelease( pFaceReader[count] );
+	}
 	if( pSensor ){
 		pSensor->Close();
 	}
