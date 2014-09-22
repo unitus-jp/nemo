@@ -136,7 +136,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	// Add Gesture
 	UINT gestureCount = 0;
 	hResult = pGestureDatabase->get_AvailableGesturesCount( &gestureCount );
-	if( FAILED( hResult ) && ( gestureCount != 0 ) ){
+	if( FAILED( hResult ) || !gestureCount ){
 		std::cerr << "Error : IVisualGestureBuilderDatabase::get_AvailableGesturesCount()" << std::endl;
 		return -1;
 	}
