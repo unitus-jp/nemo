@@ -123,12 +123,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 			return -1;
 		}
 
-		hResult = pHDFaceSource[count]->OpenReader( &pHDFaceReader[count] );
-		if( FAILED( hResult ) ){
-			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenReader()" << std::endl;
-			return -1;
-		}
-
 		// Create Face Alignment
 		hResult = CreateFaceAlignment( &pFaceAlignment[count] );
 		if( FAILED( hResult ) ){
