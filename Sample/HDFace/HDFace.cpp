@@ -105,6 +105,8 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 	IHighDefinitionFaceFrameSource* pHDFaceSource[BODY_COUNT];
 	IHighDefinitionFaceFrameReader* pHDFaceReader[BODY_COUNT];
+	IFaceModelBuilder* pFaceModelBuilder[BODY_COUNT];
+	bool produce[BODY_COUNT] = { false };
 	IFaceAlignment* pFaceAlignment[BODY_COUNT];
 	IFaceModel* pFaceModel[BODY_COUNT];
 	std::vector<std::vector<float>> deformations( BODY_COUNT, std::vector<float>( FaceShapeDeformations::FaceShapeDeformations_Count ) );
@@ -120,6 +122,20 @@ int _tmain( int argc, _TCHAR* argv[] )
 		hResult = pHDFaceSource[count]->OpenReader( &pHDFaceReader[count] );
 		if( FAILED( hResult ) ){
 			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenReader()" << std::endl;
+			return -1;
+		}
+
+		// Open Face Model Builder
+		hResult = pHDFaceSource[count]->OpenModelBuilder( FaceModelBuilderAttributes::FaceModelBuilderAttributes_None, &pFaceModelBuilder[count] );
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IHighDefinitionFaceFrameSource::OpenModelBuilder()" << std::endl;
+			return -1;
+		}
+
+		// Start Collection Face Data
+		hResult = pFaceModelBuilder[count]->BeginFaceDataCollection();
+		if( FAILED( hResult ) ){
+			std::cerr << "Error : IFaceModelBuilder::BeginFaceDataCollection()" << std::endl;
 			return -1;
 		}
 
@@ -209,6 +225,28 @@ int _tmain( int argc, _TCHAR* argv[] )
 				if( SUCCEEDED( hResult ) && bFaceTracked ){
 					hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment[count] );
 					if( SUCCEEDED( hResult ) && pFaceAlignment[count] != nullptr ){
+						if( !produce[count] ){
+							FaceModelBuilderCollectionStatus status;
+							hResult = pFaceModelBuilder[count]->get_CollectionStatus( &status );
+							if( status == FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_Complete ){
+								std::cout << "Status : Complete" << std::endl;
+
+								IFaceModelData* pFaceModelData = nullptr;
+								hResult = pFaceModelBuilder[count]->GetFaceData( &pFaceModelData );
+								if( SUCCEEDED( hResult ) && pFaceModelData != nullptr ){
+									hResult = pFaceModelData->ProduceFaceModel( &pFaceModel[count] );
+									if( SUCCEEDED( hResult ) && pFaceModel[count] != nullptr ){
+										produce[count] = true;
+									}
+								}
+								SafeRelease( pFaceModelData );
+							}
+							else{
+								std::system( "cls" );
+								std::cout << "Status : " << status << std::endl;
+							}
+						}
+
 						std::vector<CameraSpacePoint> facePoints( 1347 );
 						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], vertex, &facePoints[0] );
 						if( SUCCEEDED( hResult ) ){
@@ -247,6 +285,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	for( int count = 0; count < BODY_COUNT; count++ ){
 		SafeRelease( pHDFaceSource[count] );
 		SafeRelease( pHDFaceReader[count] );
+		SafeRelease( pFaceModelBuilder[count] );
 		SafeRelease( pFaceAlignment[count] );
 		SafeRelease( pFaceModel[count] );
 	}
