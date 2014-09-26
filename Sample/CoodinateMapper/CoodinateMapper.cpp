@@ -122,7 +122,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		IColorFrame* pColorFrame = nullptr;
 		hResult = pColorReader->AcquireLatestFrame( &pColorFrame );
 		if( SUCCEEDED( hResult ) ){
-			hResult = pColorFrame->CopyConvertedFrameDataToArray( colorBufferSize, reinterpret_cast<BYTE*>( colorBufferMat.data ), ColorImageFormat_Bgra );
+			hResult = pColorFrame->CopyConvertedFrameDataToArray( colorBufferSize, reinterpret_cast<BYTE*>( colorBufferMat.data ), ColorImageFormat::ColorImageFormat_Bgra );
 			if( SUCCEEDED( hResult ) ){
 				cv::resize( colorBufferMat, colorMat, cv::Size(), 0.5, 0.5 );
 			}

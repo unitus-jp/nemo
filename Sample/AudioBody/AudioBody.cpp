@@ -101,7 +101,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	cv::namedWindow( "AudioBody" );
 
 	// Color Table
-	cv::Vec3b color[6];
+	cv::Vec3b color[BODY_COUNT];
 	color[0] = cv::Vec3b( 255, 0, 0 );
 	color[1] = cv::Vec3b( 0, 255, 0 );
 	color[2] = cv::Vec3b( 0, 0, 255 );
@@ -161,6 +161,9 @@ int _tmain( int argc, _TCHAR* argv[] )
 						}
 					}
 				}
+			}
+			for( int count = 0; count < BODY_COUNT; count++ ){
+				SafeRelease( pBody[count] );
 			}
 		}
 		SafeRelease( pBodyFrame );

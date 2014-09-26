@@ -166,7 +166,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		IColorFrame* pColorFrame = nullptr;
 		hResult = pColorReader->AcquireLatestFrame( &pColorFrame );
 		if( SUCCEEDED( hResult ) ){
-			hResult = pColorFrame->CopyConvertedFrameDataToArray( bufferSize, reinterpret_cast<BYTE*>( bufferMat.data ), ColorImageFormat_Bgra );
+			hResult = pColorFrame->CopyConvertedFrameDataToArray( bufferSize, reinterpret_cast<BYTE*>( bufferMat.data ), ColorImageFormat::ColorImageFormat_Bgra );
 			if( SUCCEEDED( hResult ) ){
 				cv::resize( bufferMat, faceMat, cv::Size(), 0.5, 0.5 );
 			}
@@ -208,6 +208,9 @@ int _tmain( int argc, _TCHAR* argv[] )
 						}
 					}
 				}
+			}
+			for( int count = 0; count < BODY_COUNT; count++ ){
+				SafeRelease( pBody[count] );
 			}
 		}
 		SafeRelease( pBodyFrame );

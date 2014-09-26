@@ -53,7 +53,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-
 	// Description
 	IFrameDescription* pDescription;
 	hResult = pColorSource->get_FrameDescription( &pDescription );
@@ -77,7 +76,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		IColorFrame* pColorFrame = nullptr;
 		hResult = pColorReader->AcquireLatestFrame( &pColorFrame );
 		if( SUCCEEDED( hResult ) ){
-			hResult = pColorFrame->CopyConvertedFrameDataToArray( bufferSize, reinterpret_cast<BYTE*>( bufferMat.data ), ColorImageFormat_Bgra );
+			hResult = pColorFrame->CopyConvertedFrameDataToArray( bufferSize, reinterpret_cast<BYTE*>( bufferMat.data ), ColorImageFormat::ColorImageFormat_Bgra );
 			if( SUCCEEDED( hResult ) ){
 				cv::resize( bufferMat, colorMat, cv::Size(), 0.5, 0.5 );
 			}
