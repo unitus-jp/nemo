@@ -94,7 +94,7 @@ Please rewrite the appropriate setting depending on the environment.
 
     Visual Studio Express 2013 for Windows Desktop
     Kinect for Windows SDK v2.0 Public Preview
-    OpenCV 2.4.9
+    OpenCV 2.4.10
     Speech Platform SDK 11
     Kinect for Windows SDK v2.0 Language Packs (en-US)
 
@@ -109,7 +109,7 @@ Please set the following Environment Variables.
 
     Variable Name:	Variable Value:
     OPENCV_DIR		C:\Program Files\opencv\
-    OPENCV_VER		249
+    OPENCV_VER		2410
     Path		;%OPENCV_DIR%\build\x64\vc12\bin
 
 For more information, see this page.

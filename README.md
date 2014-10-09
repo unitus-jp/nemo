@@ -12,8 +12,8 @@ Disclaimer
 
 Environment
 -----------
-* Kinect for WIndows SDK v2.0 Public Preview
-* OpenCV 2.4.9
+* Kinect for Windows SDK v2.0 Public Preview
+* OpenCV 2.4.10
 * Visual Studio 2013 Express for Windows Desktop
 * Speech Platform SDK 11
 * Kinect for Windows SDK v2.0 Language Packs (en-US)
