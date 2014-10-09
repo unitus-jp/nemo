@@ -67,6 +67,13 @@ int _tmain( int argc, _TCHAR* argv[] )
 	pDescription->get_Height( &height ); // 424
 	unsigned int bufferSize = width * height * sizeof( unsigned short );
 
+	// Range
+	unsigned short min = 0;
+	unsigned short max = 0;
+	pDepthSource->get_DepthMinReliableDistance( &min ); // 500
+	pDepthSource->get_DepthMaxReliableDistance( &max ); // 4500
+	std::cout << "Range : " << min << " - " << max << std::endl;
+	
 	cv::Mat bufferMat( height, width, CV_16UC1 );
 	cv::Mat depthMat( height, width, CV_8UC1 );
 	cv::namedWindow( "Depth" );
@@ -75,15 +82,6 @@ int _tmain( int argc, _TCHAR* argv[] )
 		// Frame
 		IDepthFrame* pDepthFrame = nullptr;
 		hResult = pDepthReader->AcquireLatestFrame( &pDepthFrame );
-
-		/*
-		USHORT max;
-		hResult = pDepthFrame->get_DepthMaxReliableDistance( &max );
-		if( SUCCEEDED(hResult) ){
-			std::cout << max << std::endl;
-		}
-		*/
-
 		if( SUCCEEDED( hResult ) ){
 			hResult = pDepthFrame->AccessUnderlyingBuffer( &bufferSize, reinterpret_cast<UINT16**>( &bufferMat.data ) );
 			if( SUCCEEDED( hResult ) ){
