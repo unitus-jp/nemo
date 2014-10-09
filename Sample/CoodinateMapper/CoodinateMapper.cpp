@@ -98,7 +98,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	pDepthDescription->get_Height( &depthHeight ); // 424
 	unsigned int depthBufferSize = depthWidth * depthHeight * sizeof( unsigned short );
 
-	cv::Mat depthBufferMat( depthHeight, depthWidth, CV_16SC1 );
+	cv::Mat depthBufferMat( depthHeight, depthWidth, CV_16UC1 );
 	cv::Mat depthMat( depthHeight, depthWidth, CV_8UC1 );
 	cv::namedWindow( "Depth" );
 

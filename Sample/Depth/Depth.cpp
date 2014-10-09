@@ -67,7 +67,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	pDescription->get_Height( &height ); // 424
 	unsigned int bufferSize = width * height * sizeof( unsigned short );
 
-	cv::Mat bufferMat( height, width, CV_16SC1 );
+	cv::Mat bufferMat( height, width, CV_16UC1 );
 	cv::Mat depthMat( height, width, CV_8UC1 );
 	cv::namedWindow( "Depth" );
 
