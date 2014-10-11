@@ -85,7 +85,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	// Initialize COM
 	hResult = CoInitializeEx( NULL, COINIT_MULTITHREADED );
 	if( FAILED( hResult ) ){
-		std::cerr << "Error : CoInitializeEx( )" << std::endl;
+		std::cerr << "Error : CoInitializeEx()" << std::endl;
 		return -1;
 	}
 
