@@ -127,6 +127,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 				cv::resize( colorBufferMat, colorMat, cv::Size(), 0.5, 0.5 );
 			}
 		}
+		//SafeRelease( pColorFrame );
 
 		// Depth Frame
 		IDepthFrame* pDepthFrame = nullptr;
@@ -137,6 +138,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 				depthBufferMat.convertTo( depthMat, CV_8U, -255.0f / 4500.0f, 255.0f );
 			}
 		}
+		//SafeRelease( pDepthFrame );
 
 		// Mapping (Depth to Color)
 		if( SUCCEEDED( hResult ) ){
