@@ -250,7 +250,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 							}
 						}
 
-						std::vector<CameraSpacePoint> facePoints( 1347 );
+						std::vector<CameraSpacePoint> facePoints( vertex );
 						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], vertex, &facePoints[0] );
 						if( SUCCEEDED( hResult ) ){
 							for( int point = 0; point < vertex; point++ ){
