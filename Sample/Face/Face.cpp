@@ -227,18 +227,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 					IFaceFrameResult* pFaceResult = nullptr;
 					hResult = pFaceFrame->get_FaceFrameResult( &pFaceResult );
 					if( SUCCEEDED( hResult ) && pFaceResult != nullptr ){
-						UINT64 trackingId;
-						hResult = pFaceResult->get_TrackingId( &trackingId );
-						if( SUCCEEDED(hResult) ){
-							std::cout << "Count : " << count << ", TrackingID : " << trackingId << std::endl;
-						}
-
-						// Face Bounding Box
-						RectI boundingBox;
-						hResult = pFaceResult->get_FaceBoundingBoxInColorSpace( &boundingBox );
-						if( SUCCEEDED( hResult ) ){
-							cv::rectangle( bufferMat, cv::Rect( boundingBox.Left, boundingBox.Top, boundingBox.Right - boundingBox.Left, boundingBox.Bottom - boundingBox.Top ), static_cast< cv::Scalar >( color[count] ) );
-						}
+						std::vector<std::string> result;
 
 						// Face Point
 						PointF facePoint[FacePointType::FacePointType_Count];
@@ -251,28 +240,11 @@ int _tmain( int argc, _TCHAR* argv[] )
 							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[4].X ), static_cast<int>( facePoint[4].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Mouth (Right)
 						}
 
-						// Face Property
-						DetectionResult faceProperty[FaceProperty::FaceProperty_Count];
-						hResult = pFaceResult->GetFaceProperties( FaceProperty::FaceProperty_Count, faceProperty );
+						// Face Bounding Box
+						RectI boundingBox;
+						hResult = pFaceResult->get_FaceBoundingBoxInColorSpace( &boundingBox );
 						if( SUCCEEDED( hResult ) ){
-							for( int count = 0; count < FaceProperty::FaceProperty_Count; count++ ){
-								switch( faceProperty[count] ){
-									case DetectionResult::DetectionResult_Unknown:
-										std::cout << property[count] << " : Unknown" << std::endl;
-										break;
-									case DetectionResult::DetectionResult_Yes:
-										std::cout << property[count] << " : Yes" << std::endl;
-										break;
-									case DetectionResult::DetectionResult_No:
-										std::cout << property[count] << " : No" << std::endl;
-										break;
-									case DetectionResult::DetectionResult_Maybe:
-										std::cout << property[count] << " : Mayby" << std::endl;
-										break;
-									default:
-										break;
-								}
-							}
+							cv::rectangle( bufferMat, cv::Rect( boundingBox.Left, boundingBox.Top, boundingBox.Right - boundingBox.Left, boundingBox.Bottom - boundingBox.Top ), static_cast< cv::Scalar >( color[count] ) );
 						}
 
 						// Face Rotation
@@ -281,10 +253,39 @@ int _tmain( int argc, _TCHAR* argv[] )
 						if( SUCCEEDED( hResult ) ){
 							int pitch, yaw, roll;
 							ExtractFaceRotationInDegrees( &faceRotation, &pitch, &yaw, &roll );
-							std::cout << "Pitch, Yaw, Roll : " << pitch << ", " << yaw << ", " << roll << std::endl;
+							result.push_back( "Pitch, Yaw, Roll : " + std::to_string( pitch ) + ", " + std::to_string( yaw ) + ", " + std::to_string( roll ) );
 						}
 
-						std::cout << std::endl;
+						// Face Property
+						DetectionResult faceProperty[FaceProperty::FaceProperty_Count];
+						hResult = pFaceResult->GetFaceProperties( FaceProperty::FaceProperty_Count, faceProperty );
+						if( SUCCEEDED( hResult ) ){
+							for( int count = 0; count < FaceProperty::FaceProperty_Count; count++ ){
+								switch( faceProperty[count] ){
+									case DetectionResult::DetectionResult_Unknown:
+										result.push_back( property[count] + " : Unknown" );
+										break;
+									case DetectionResult::DetectionResult_Yes:
+										result.push_back( property[count] + " : Yes" );
+										break;
+									case DetectionResult::DetectionResult_No:
+										result.push_back( property[count] + " : No" );
+										break;
+									case DetectionResult::DetectionResult_Maybe:
+										result.push_back( property[count] + " : Mayby" );
+										break;
+									default:
+										break;
+								}
+							}
+						}
+
+						if( boundingBox.Left && boundingBox.Bottom ){
+							int offset = 30;
+							for( std::vector<std::string>::iterator it = result.begin(); it != result.end(); it++, offset += 30 ){
+								cv::putText( bufferMat, *it, cv::Point( boundingBox.Left, boundingBox.Bottom + offset ), cv::FONT_HERSHEY_COMPLEX, 1.0f, static_cast< cv::Scalar >( color[count] ), 2, CV_AA );
+							}
+						}
 					}
 					SafeRelease( pFaceResult );
 				}
