@@ -195,7 +195,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 								int x = static_cast<int>( colorSpacePoint.X );
 								int y = static_cast<int>( colorSpacePoint.Y );
 								if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-									cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+									cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA );
 								}
 							}
 						}*/
@@ -233,18 +233,18 @@ int _tmain( int argc, _TCHAR* argv[] )
 						PointF facePoint[FacePointType::FacePointType_Count];
 						hResult = pFaceResult->GetFacePointsInColorSpace( FacePointType::FacePointType_Count, facePoint );
 						if( SUCCEEDED( hResult ) ){
-							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[0].X ), static_cast<int>( facePoint[0].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Eye (Left)
-							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[1].X ), static_cast<int>( facePoint[1].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Eye (Right)
-							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[2].X ), static_cast<int>( facePoint[2].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Nose
-							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[3].X ), static_cast<int>( facePoint[3].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Mouth (Left)
-							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[4].X ), static_cast<int>( facePoint[4].Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA ); // Mouth (Right)
+							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[0].X ), static_cast<int>( facePoint[0].Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA ); // Eye (Left)
+							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[1].X ), static_cast<int>( facePoint[1].Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA ); // Eye (Right)
+							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[2].X ), static_cast<int>( facePoint[2].Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA ); // Nose
+							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[3].X ), static_cast<int>( facePoint[3].Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA ); // Mouth (Left)
+							cv::circle( bufferMat, cv::Point( static_cast<int>( facePoint[4].X ), static_cast<int>( facePoint[4].Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA ); // Mouth (Right)
 						}
 
 						// Face Bounding Box
 						RectI boundingBox;
 						hResult = pFaceResult->get_FaceBoundingBoxInColorSpace( &boundingBox );
 						if( SUCCEEDED( hResult ) ){
-							cv::rectangle( bufferMat, cv::Rect( boundingBox.Left, boundingBox.Top, boundingBox.Right - boundingBox.Left, boundingBox.Bottom - boundingBox.Top ), static_cast< cv::Scalar >( color[count] ) );
+							cv::rectangle( bufferMat, cv::Rect( boundingBox.Left, boundingBox.Top, boundingBox.Right - boundingBox.Left, boundingBox.Bottom - boundingBox.Top ), static_cast<cv::Scalar>( color[count] ) );
 						}
 
 						// Face Rotation
@@ -283,7 +283,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 						if( boundingBox.Left && boundingBox.Bottom ){
 							int offset = 30;
 							for( std::vector<std::string>::iterator it = result.begin(); it != result.end(); it++, offset += 30 ){
-								cv::putText( bufferMat, *it, cv::Point( boundingBox.Left, boundingBox.Bottom + offset ), cv::FONT_HERSHEY_COMPLEX, 1.0f, static_cast< cv::Scalar >( color[count] ), 2, CV_AA );
+								cv::putText( bufferMat, *it, cv::Point( boundingBox.Left, boundingBox.Bottom + offset ), cv::FONT_HERSHEY_COMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
 							}
 						}
 					}
