@@ -1,4 +1,4 @@
-// AudioBeam.cpp : コンソール アプリケーションのエントリ ポイントを定義します。
+// AudioBeam.cpp : 繧ｳ繝ｳ繧ｽ繝ｼ繝ｫ 繧｢繝励Μ繧ｱ繝ｼ繧ｷ繝ｧ繝ｳ縺ｮ繧ｨ繝ｳ繝医Μ 繝昴う繝ｳ繝医ｒ螳夂ｾｩ縺励∪縺吶�
 // This source code is licensed under the MIT license. Please see the License in License.txt.
 // "This is preliminary software and/or hardware and APIs are preliminary and subject to change."
 //
@@ -79,7 +79,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 
 		// Input Key ( Exit ESC key )
 		if( GetKeyState( VK_ESCAPE ) < 0 ){
-				break;
+			break;
 		}
 	}
 
