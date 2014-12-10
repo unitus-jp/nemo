@@ -46,36 +46,48 @@ int _tmain( int argc, _TCHAR* argv[] )
 		return -1;
 	}
 
-	// Get Audio Beam List
-	IAudioBeamList* pAudioBeamList;
-	hResult = pAudioSource->get_AudioBeams( &pAudioBeamList );
+	// Reader
+	IAudioBeamFrameReader* pAudioReader;
+	hResult = pAudioSource->OpenReader( &pAudioReader );
 	if( FAILED( hResult ) ){
-		std::cerr << "Error : IAudioSource::get_AudioBeams()" << std::endl;
-		return -1;
-	}
-
-	// Open Audio Beam
-	IAudioBeam* pAudioBeam;
-	hResult = pAudioBeamList->OpenAudioBeam( 0, &pAudioBeam );
-	if( FAILED( hResult ) ){
-		std::cerr << "Error : IAudioBeamList::OpenAudioBeam()" << std::endl;
+		std::cerr << "Error : IAudioSource::OpenReader()" << std::endl;
 		return -1;
 	}
 
 	while( 1 ){
-		// Get Angle and Confidence
-		FLOAT angle = 0.0f;
-		FLOAT confidence = 0.0f;
+		// Frame List
+		IAudioBeamFrameList* pAudioFrameList = nullptr;
+		hResult = pAudioReader->AcquireLatestBeamFrames( &pAudioFrameList );
+		if( SUCCEEDED( hResult ) ){
+			UINT count = 0;
+			hResult = pAudioFrameList->get_BeamCount( &count );
+			if( SUCCEEDED( hResult ) ){
+				for( int index = 0; index < count; index++ ){
+					// Frame
+					IAudioBeamFrame* pAudioFrame = nullptr;
+					hResult = pAudioFrameList->OpenAudioBeamFrame( index, &pAudioFrame );
+					if( SUCCEEDED( hResult ) ){
+						// Get Beam Angle and Confidence
+						IAudioBeam* pAudioBeam = nullptr;
+						hResult = pAudioFrame->get_AudioBeam( &pAudioBeam );
+						if( SUCCEEDED( hResult ) ){
+							FLOAT angle = 0.0f;
+							FLOAT confidence = 0.0f;
+							pAudioBeam->get_BeamAngle( &angle ); // radian [-0.872665f, 0.872665f]
+							pAudioBeam->get_BeamAngleConfidence( &confidence ); // confidence [0.0f, 1.0f]
 
-		pAudioBeam->get_BeamAngle( &angle ); // radian [-0.872665f, 0.872665f]
-		pAudioBeam->get_BeamAngleConfidence( &confidence ); // confidence [0.0f, 1.0f]
-
-		// Show Result
-		// Convert from radian to degree : degree = radian * 180 / Pi
-		if( confidence > 0.5f ){
-			std::system( "cls" );
-			std::cout << "Angle : " << angle * 180.0f / M_PI << ", Confidence : " << confidence << std::endl;
+							// Convert from radian to degree : degree = radian * 180 / Pi
+							if( confidence > 0.5f ){
+								std::cout << "Index : " << index << ", Angle : " << angle * 180.0f / M_PI << ", Confidence : " << confidence << std::endl;
+							}
+						}
+						SafeRelease( pAudioBeam );
+					}
+					SafeRelease( pAudioFrame );
+				}
+			}
 		}
+		SafeRelease( pAudioFrameList );
 
 		// Input Key ( Exit ESC key )
 		if( GetKeyState( VK_ESCAPE ) < 0 ){
@@ -83,9 +95,8 @@ int _tmain( int argc, _TCHAR* argv[] )
 		}
 	}
 
-	SafeRelease( pAudioBeam );
-	SafeRelease( pAudioBeamList );
 	SafeRelease( pAudioSource );
+	SafeRelease( pAudioReader );
 	if( pSensor ){
 		pSensor->Close();
 	}
