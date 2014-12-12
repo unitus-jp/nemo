@@ -135,7 +135,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		if( SUCCEEDED( hResult ) ){
 			hResult = pDepthFrame->AccessUnderlyingBuffer( &depthBufferSize, reinterpret_cast<UINT16**>( &depthBufferMat.data ) );
 			if( SUCCEEDED( hResult ) ){
-				depthBufferMat.convertTo( depthMat, CV_8U, -255.0f / 4500.0f, 255.0f );
+				depthBufferMat.convertTo( depthMat, CV_8U, -255.0f / 8000.0f, 255.0f );
 			}
 		}
 		//SafeRelease( pDepthFrame );

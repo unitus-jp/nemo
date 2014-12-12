@@ -67,7 +67,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 	pDescription->get_Height( &height ); // 424
 	unsigned int bufferSize = width * height * sizeof( unsigned short );
 
-	// Range
+	// Range ( Range of Depth is 500-8000[mm], Range of Detection is 500-4500[mm] ) 
 	unsigned short min = 0;
 	unsigned short max = 0;
 	pDepthSource->get_DepthMinReliableDistance( &min ); // 500
@@ -85,7 +85,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 		if( SUCCEEDED( hResult ) ){
 			hResult = pDepthFrame->AccessUnderlyingBuffer( &bufferSize, reinterpret_cast<UINT16**>( &bufferMat.data ) );
 			if( SUCCEEDED( hResult ) ){
-				bufferMat.convertTo( depthMat, CV_8U, -255.0f / 4500.0f, 255.0f );
+				bufferMat.convertTo( depthMat, CV_8U, -255.0f / 8000.0f, 255.0f );
 			}
 		}
 		SafeRelease( pDepthFrame );
