@@ -1,4 +1,4 @@
-﻿Kinect for Windows SDK v2 Developer Preview Sample Program ReadMe.txt
+﻿Kinect for Windows SDK v2 Sample Program ReadMe.txt
 
 
 ■Structure
@@ -93,7 +93,7 @@ This Sample Program is setting to be able to build in the following environments
 Please rewrite the appropriate setting depending on the environment.
 
     Visual Studio Express 2013 for Windows Desktop
-    Kinect for Windows SDK v2.0 Public Preview
+    Kinect for Windows SDK v2.0
     OpenCV 2.4.10
     Speech Platform SDK 11
     Kinect for Windows SDK v2.0 Language Packs (en-US)
@@ -119,7 +119,7 @@ For more information, see this page.
 
 
 ■Build Insider
-Kinect for Windows v2 Developer Preview Introduction - for C++ Programmers Article Series
+Kinect for Windows v2 Introduction - for C++ Programmers Article Series
 http://www.buildinsider.net/small/kinectv2cpp
 
     1. To Compare Kinect v1 and Kinect v2
@@ -137,7 +137,7 @@ http://www.buildinsider.net/small/kinectv2cpp
     5. Kinect v2 Programming for C++ - Body part
     http://www.buildinsider.net/small/kinectv2cpp/05
 
-    6. What's New Kinect Studio v2? - March SDK Update
+    6. Kinect Studio v2
     http://www.buildinsider.net/small/kinectv2cpp/06
 
     7. Kinect v2 Programming for C++ - AudioBeam part

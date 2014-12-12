@@ -1,7 +1,7 @@
-﻿Kinect for Windows SDK v2 Developer Preview Sample Program
+﻿Kinect for Windows SDK v2 Sample Program
 ==========================================================
 
-Sample Program of Kinect for Windows SDK v2 Developer Preview  
+Sample Program of Kinect for Windows SDK v2  
 I will continue to add new sample program when published article in Build Insider.
 
 
@@ -12,7 +12,7 @@ Disclaimer
 
 Environment
 -----------
-* Kinect for Windows SDK v2.0 Public Preview
+* Kinect for Windows SDK v2.0
 * OpenCV 2.4.10
 * Visual Studio 2013 Express for Windows Desktop
 * Speech Platform SDK 11
@@ -35,5 +35,5 @@ Contact
 
 Build Insider
 -------------
-* Kinect for Windows v2 Developer Preview Introduction - for C++ Programmers Article Series
+* Kinect for Windows v2 Introduction - for C++ Programmers Article Series
   <http://www.buildinsider.net/small/kinectv2cpp>

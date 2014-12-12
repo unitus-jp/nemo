@@ -1,4 +1,4 @@
-Kinect for Windows SDK v2 Developer Preview Sample Program License
+Kinect for Windows SDK v2 Sample Program License
  
 The MIT License
 
