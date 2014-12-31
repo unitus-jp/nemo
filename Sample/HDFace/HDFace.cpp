@@ -8,7 +8,7 @@
 #include <Kinect.h>
 #include <Kinect.Face.h>
 #include <opencv2/opencv.hpp>
-
+#include <bitset>
 
 template<class Interface>
 inline void SafeRelease( Interface *& pInterfaceToRelease )
@@ -194,10 +194,10 @@ int _tmain( int argc, _TCHAR* argv[] )
 								for( int type = 0; type < JointType::JointType_Count; type++ ){
 									ColorSpacePoint colorSpacePoint = { 0 };
 									pCoordinateMapper->MapCameraPointToColorSpace( joint[type].Position, &colorSpacePoint );
-									int x = static_cast< int >( colorSpacePoint.X );
-									int y = static_cast< int >( colorSpacePoint.Y );
+									int x = static_cast<int>( colorSpacePoint.X );
+									int y = static_cast<int>( colorSpacePoint.Y );
 									if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-										cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+										cv::circle( bufferMat, cv::Point( x, y ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA );
 									}
 								}
 							}*/
@@ -228,12 +228,14 @@ int _tmain( int argc, _TCHAR* argv[] )
 				if( SUCCEEDED( hResult ) && bFaceTracked ){
 					hResult = pHDFaceFrame->GetAndRefreshFaceAlignmentResult( pFaceAlignment[count] );
 					if( SUCCEEDED( hResult ) && pFaceAlignment[count] != nullptr ){
+						// Face Model Building
 						if( !produce[count] ){
-							FaceModelBuilderCollectionStatus status;
-							hResult = pFaceModelBuilder[count]->get_CollectionStatus( &status );
-							if( status == FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_Complete ){
+							std::system( "cls" );
+							FaceModelBuilderCollectionStatus collection;
+							hResult = pFaceModelBuilder[count]->get_CollectionStatus( &collection );
+							if( collection == FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_Complete ){
 								std::cout << "Status : Complete" << std::endl;
-
+								cv::putText( bufferMat, "Status : Complete", cv::Point( 50, 50 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
 								IFaceModelData* pFaceModelData = nullptr;
 								hResult = pFaceModelBuilder[count]->GetFaceData( &pFaceModelData );
 								if( SUCCEEDED( hResult ) && pFaceModelData != nullptr ){
@@ -245,11 +247,50 @@ int _tmain( int argc, _TCHAR* argv[] )
 								SafeRelease( pFaceModelData );
 							}
 							else{
-								std::system( "cls" );
-								std::cout << "Status : " << status << std::endl;
+								std::cout << "Status : " << collection << std::endl;
+								cv::putText( bufferMat, "Status : " + std::to_string( collection ), cv::Point( 50, 50 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+
+								// Collection Status
+								if( collection >= FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_TiltedUpViewsNeeded ){
+									std::cout << "Need : Tilted Up Views" << std::endl;
+									cv::putText( bufferMat, "Need : Tilted Up Views", cv::Point( 50, 100 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+								}
+								else if( collection >= FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_RightViewsNeeded ){
+									std::cout << "Need : Right Views" << std::endl;
+									cv::putText( bufferMat, "Need : Right Views", cv::Point( 50, 100 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+								}
+								else if( collection >= FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_LeftViewsNeeded ){
+									std::cout << "Need : Left Views" << std::endl;
+									cv::putText( bufferMat, "Need : Left Views", cv::Point( 50, 100 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+								}
+								else if( collection >= FaceModelBuilderCollectionStatus::FaceModelBuilderCollectionStatus_FrontViewFramesNeeded ){
+									std::cout << "Need : Front ViewFrames" << std::endl;
+									cv::putText( bufferMat, "Need : Front ViewFrames", cv::Point( 50, 100 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+								}
+
+								// Capture Status
+								FaceModelBuilderCaptureStatus capture;
+								hResult = pFaceModelBuilder[count]->get_CaptureStatus( &capture );
+								switch( capture ){
+									case FaceModelBuilderCaptureStatus::FaceModelBuilderCaptureStatus_FaceTooFar:
+										std::cout << "Error : Face Too Far from Camera" << std::endl;
+										cv::putText( bufferMat, "Error : Face Too Far from Camera", cv::Point( 50, 150 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+										break;
+									case FaceModelBuilderCaptureStatus::FaceModelBuilderCaptureStatus_FaceTooNear:
+										std::cout << "Error : Face Too Near to Camera" << std::endl;
+										cv::putText( bufferMat, "Error : Face Too Near to Camera", cv::Point( 50, 150 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+										break;
+									case FaceModelBuilderCaptureStatus_MovingTooFast:
+										std::cout << "Error : Moving Too Fast" << std::endl;
+										cv::putText( bufferMat, "Error : Moving Too Fast", cv::Point( 50, 150 ), cv::FONT_HERSHEY_SIMPLEX, 1.0f, static_cast<cv::Scalar>( color[count] ), 2, CV_AA );
+										break;
+									default:
+										break;
+								}
 							}
 						}
 
+						// HD Face Points
 						std::vector<CameraSpacePoint> facePoints( vertex );
 						hResult = pFaceModel[count]->CalculateVerticesForAlignment( pFaceAlignment[count], vertex, &facePoints[0] );
 						if( SUCCEEDED( hResult ) ){
@@ -260,7 +301,7 @@ int _tmain( int argc, _TCHAR* argv[] )
 									int x = static_cast<int>( colorSpacePoint.X );
 									int y = static_cast<int>( colorSpacePoint.Y );
 									if( ( x >= 0 ) && ( x < width ) && ( y >= 0 ) && ( y < height ) ){
-										cv::circle( bufferMat, cv::Point( static_cast< int >( colorSpacePoint.X ), static_cast< int >( colorSpacePoint.Y ) ), 5, static_cast< cv::Scalar >( color[count] ), -1, CV_AA );
+										cv::circle( bufferMat, cv::Point( static_cast<int>( colorSpacePoint.X ), static_cast<int>( colorSpacePoint.Y ) ), 5, static_cast<cv::Scalar>( color[count] ), -1, CV_AA );
 									}
 								}
 							}
