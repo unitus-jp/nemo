@@ -1,6 +1,8 @@
 ﻿Kinect for Windows SDK v2 Sample Program
 ==========================================================
 
+[![Gittip](http://img.shields.io/gratipay/TsukasaSugiura.svg)](https://gratipay.com/TsukasaSugiura/)  
+
 Sample Program of Kinect for Windows SDK v2  
 I will continue to add new sample program when published article in Build Insider.
 
