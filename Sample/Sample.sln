@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Color", "Color\Color.vcxproj", "{10D7FFE7-5FE1-40A4-B5A5-7C331FB06CF3}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fusion", "Fusion\Fusion.vcxproj", "{E4DDC2E5-0BF3-4D17-ABD1-9384DD691DC2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HDFace", "HDFace\HDFace.vcxproj", "{80CD7ACC-5D89-41A2-BCCB-A410586BA31C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Controls", "Controls\Controls.vcxproj", "{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,14 @@ Global
 		{80CD7ACC-5D89-41A2-BCCB-A410586BA31C}.Release|Win32.Build.0 = Release|Win32
 		{80CD7ACC-5D89-41A2-BCCB-A410586BA31C}.Release|x64.ActiveCfg = Release|x64
 		{80CD7ACC-5D89-41A2-BCCB-A410586BA31C}.Release|x64.Build.0 = Release|x64
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Debug|Win32.Build.0 = Debug|Win32
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Debug|x64.ActiveCfg = Debug|x64
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Debug|x64.Build.0 = Debug|x64
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Release|Win32.ActiveCfg = Release|Win32
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Release|Win32.Build.0 = Release|Win32
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Release|x64.ActiveCfg = Release|x64
+		{61087C0F-2D29-4B51-9791-1E0BC76EA5FE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
