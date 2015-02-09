@@ -76,6 +76,10 @@ Structure of this Sample Program is as follows.
     │  │  ├─HDFace.vcxproj
     │  │  └─HDFace.cpp
     │  │
+    │  ├─Controls
+    │  │  ├─Controls.vcxproj
+    │  │  └─Controls.cpp
+    │  │
     │  │  // Property Sheet
     │  ├─Sample.props
     │  │
@@ -181,3 +185,4 @@ F ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 2014/08/21 Add CoodinateMapper
 2014/08/21 Add Fusion
 2014/08/26 Add HDFace
+2015/02/10 Add Controls
